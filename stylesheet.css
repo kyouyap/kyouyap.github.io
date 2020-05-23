@@ -18,8 +18,8 @@ a {
 }
 
 .top-wrapper {
-  padding: 180px 0 100px 0;
-  background-image: url(top.png);
+  padding: 180px 0 300px 0;
+  background-image: url(IMG_8024.JPG);
   background-size: cover;
   color: white;
   text-align: center;
@@ -78,7 +78,7 @@ a {
 header {
   height: 65px;
   width: 100%;
-  background-color: rgba(34,49,52,0.9);
+  background-color: rgba(205,92,92,0.9);
   position :fixed;
   top: 0;
   z-index: 10;
@@ -124,22 +124,27 @@ header {
   padding-top: 80px;
   padding-bottom: 50px;
   color: #5f5d60;
+  /* float:left; */
 }
-
+.heading h1 {
+  /* padding-left:30px; */
+  /* float:left; */
+  font-weight: normal;
+}
 .heading h2 {
   font-weight: normal;
 }
 
 .lesson {
   float: left;
-  width: 25%;
+  width: 33%;
 }
 
 .lesson-icon {
   position: relative;
 }
 
-.lesson-icon p {
+.lesson-icon a {
   position: absolute;
   top: 37%;
   width: 100%;
@@ -153,13 +158,17 @@ header {
   font-size: 13px;
   color: #b3aeb5;
 }
+.heading h1 {
+  /* padding-left: 0px; */
+  font-weight: normal;
+}
 
 .heading h3 {
   font-weight: normal;
 }
 
 .message-wrapper {
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
   padding-bottom: 80px;
   text-align: center;
 }
@@ -176,8 +185,20 @@ header {
   top: 7px;
   box-shadow: none;
 }
-
+.possible{
+  padding-top:10px;
+  padding-right:50px;
+  font-size:20px;
+  /* float:left; */
+}
+.possible li{
+  /* float:left; */
+  padding-left:10px;
+  padding: 3px;
+  list-style: None;
+}
 footer img {
+  /* border-top: 1px solid #eee; */
   width: 125px;
 }
 
@@ -187,7 +208,8 @@ footer p {
 }
 
 footer {
-  padding-top: 30px;
+  /* border-bottom: 1px solid #eee; */
+  padding-top: 130px;
   padding-bottom: 20px;
 }
 
@@ -214,6 +236,7 @@ footer {
   }
 
   footer {
+
     text-align: center;
   }
 }
