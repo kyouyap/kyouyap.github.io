@@ -142,7 +142,7 @@ const Portfolio = () => {
               onClick={() => setSelectedCategory('all')}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === 'all'
                 ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105'
-                : 'bg-white/80 text-gray-700 hover:bg-white/90'
+                : 'bg-white/80 text-gray-700'
                 }`}
             >
               🌟 すべて
@@ -151,7 +151,7 @@ const Portfolio = () => {
               onClick={() => setSelectedCategory('featured')}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === 'featured'
                 ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105'
-                : 'bg-white/80 text-gray-700 hover:bg-white/90'
+                : 'bg-white/80 text-gray-700'
                 }`}
             >
               ✨ 注目
@@ -163,7 +163,7 @@ const Portfolio = () => {
               }}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === 'work'
                 ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white scale-105'
-                : 'bg-white/80 text-gray-700 hover:bg-white/90 hover:scale-105'
+                : 'bg-white/80 text-gray-700 hover:scale-105'
                 }`}
             >
               💼 実務経験
@@ -174,7 +174,7 @@ const Portfolio = () => {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === category
                   ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105'
-                  : 'bg-white/80 text-gray-700 hover:bg-white/90'
+                  : 'bg-white/80 text-gray-700'
                   }`}
               >
                 {category}
@@ -199,11 +199,10 @@ const Portfolio = () => {
             filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className="group relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-500 border border-white/40 hover:bg-white/90"
+                className="group relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-500 border border-white/40"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
-                whileHover={{ scale: 1.02 }}
               >
 
 
