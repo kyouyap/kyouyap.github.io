@@ -4,16 +4,16 @@ import { useProjects } from '../hooks/useProjects';
 import type { ProjectCategory } from '../types/Project';
 
 const Portfolio = () => {
-  const { 
-    projects, 
-    loading, 
-    error, 
-    filterByCategory, 
+  const {
+    projects,
+    loading,
+    error,
+    filterByCategory,
     getFeaturedProjects,
     searchProjects,
-    getCategories 
+    getCategories
   } = useProjects();
-  
+
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | 'all' | 'featured' | 'work'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -35,7 +35,7 @@ const Portfolio = () => {
 
   const getFilteredProjects = () => {
     let filtered = projects;
-    
+
     if (searchQuery) {
       filtered = searchProjects(searchQuery);
     } else if (selectedCategory === 'featured') {
@@ -45,7 +45,7 @@ const Portfolio = () => {
     } else if (selectedCategory !== 'all') {
       filtered = filterByCategory(selectedCategory as ProjectCategory);
     }
-    
+
     return filtered;
   };
 
@@ -60,9 +60,9 @@ const Portfolio = () => {
         <div className="absolute top-20 right-16 w-24 h-24 bg-gradient-to-r from-pink-300 to-red-300 rounded-full opacity-20 animate-pulse delay-1000"></div>
         <div className="absolute bottom-16 left-1/4 w-28 h-28 bg-gradient-to-r from-green-300 to-teal-300 rounded-full opacity-15 animate-pulse delay-500"></div>
       </div>
-      
+
       <div className="relative z-10 px-8">
-        <motion.h1 
+        <motion.h1
           className="text-4xl md:text-6xl font-extrabold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 drop-shadow-lg"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ const Portfolio = () => {
         >
           💼 My Portfolio
         </motion.h1>
-        
+
         <motion.p
           className="text-xl text-gray-700 text-center mb-8 font-medium bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30 max-w-3xl mx-auto"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -106,21 +106,19 @@ const Portfolio = () => {
           <div className="flex flex-wrap gap-3 justify-center">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                selectedCategory === 'all'
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === 'all'
                   ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105'
                   : 'bg-white/80 text-gray-700 hover:bg-white/90 shadow-md hover:shadow-lg'
-              }`}
+                }`}
             >
               🌟 すべて
             </button>
             <button
               onClick={() => setSelectedCategory('featured')}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                selectedCategory === 'featured'
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === 'featured'
                   ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105'
                   : 'bg-white/80 text-gray-700 hover:bg-white/90 shadow-md hover:shadow-lg'
-              }`}
+                }`}
             >
               ✨ 注目
             </button>
@@ -129,11 +127,10 @@ const Portfolio = () => {
                 setSearchQuery('');
                 setSelectedCategory('work');
               }}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                selectedCategory === 'work'
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === 'work'
                   ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg scale-105'
                   : 'bg-white/80 text-gray-700 hover:bg-white/90 shadow-md hover:shadow-lg hover:scale-105'
-              }`}
+                }`}
             >
               💼 実務経験
             </button>
@@ -141,18 +138,17 @@ const Portfolio = () => {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                  selectedCategory === category
+                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === category
                     ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105'
                     : 'bg-white/80 text-gray-700 hover:bg-white/90 shadow-md hover:shadow-lg'
-                }`}
+                  }`}
               >
                 {category}
               </button>
             ))}
           </div>
         </motion.div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {filteredProjects.length === 0 ? (
             <motion.div
@@ -176,7 +172,7 @@ const Portfolio = () => {
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="relative">
-                                                      
+
                   {/* フィーチャーバッジ */}
                   {project.featured && (
                     <div className="absolute top-4 left-4">
@@ -186,7 +182,7 @@ const Portfolio = () => {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-2xl font-bold text-gray-800 group-hover:text-gray-900 transition-colors">
@@ -196,7 +192,7 @@ const Portfolio = () => {
                       {project.category}
                     </span>
                   </div>
-                  
+
                   {/* プロジェクト期間の表示 */}
                   {project.period && (
                     <div className="mb-3">
@@ -205,7 +201,7 @@ const Portfolio = () => {
                       </span>
                     </div>
                   )}
-                  
+
                   <p className="text-gray-600 mb-6 leading-relaxed">
                     {project.description}
                   </p>
@@ -260,10 +256,10 @@ const Portfolio = () => {
                       );
                     })}
                   </div>
-                  
+
                   <div className="flex gap-3">
                     {project.demoUrl && (
-                      <a 
+                      <a
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -273,7 +269,7 @@ const Portfolio = () => {
                       </a>
                     )}
                     {project.codeUrl && (
-                      <a 
+                      <a
                         href={project.codeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -282,37 +278,12 @@ const Portfolio = () => {
                         💻 コード
                       </a>
                     )}
-                    {!project.demoUrl && !project.codeUrl && (
-                      <span className="px-6 py-2 bg-gradient-to-r from-gray-400 to-gray-500 text-white font-medium rounded-full shadow-md cursor-not-allowed">
-                        🔒 実務プロジェクト
-                      </span>
-                    )}
                   </div>
                 </div>
               </motion.div>
             ))
           )}
         </div>
-        
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <p className="text-lg text-gray-600 font-medium mb-4">
-            もっと多くのプロジェクトをご覧になりたい方は...
-          </p>
-          <div className="flex gap-4 justify-center">
-            <button
-              onClick={() => setSearchQuery('')}
-              className="px-8 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white font-bold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-            >
-              🔄 検索をクリア
-            </button>
-          </div>
-          
-        </motion.div>
       </div>
     </div>
   );
