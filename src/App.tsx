@@ -8,18 +8,22 @@ import Header from "./components/Header";
 
 const App: React.FC = () => (
   <Router>
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 via-blue-50 to-cyan-100 relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-pink-300 to-purple-300 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-blue-300 to-cyan-300 rounded-full opacity-20 animate-pulse delay-1000"></div>
-        <div className="absolute bottom-40 left-1/4 w-40 h-40 bg-gradient-to-r from-yellow-300 to-orange-300 rounded-full opacity-15 animate-pulse delay-2000"></div>
-        <div className="absolute bottom-20 right-10 w-28 h-28 bg-gradient-to-r from-green-300 to-teal-300 rounded-full opacity-20 animate-pulse delay-500"></div>
+    <div className="flex flex-col min-h-screen bg-gradient-mesh relative overflow-hidden">
+      {/* Modern floating elements with enhanced animation */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 left-20 w-48 h-48 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-20 rounded-full blur-xl animate-float"></div>
+        <div className="absolute top-40 right-32 w-32 h-32 bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 opacity-30 rounded-full blur-lg animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-32 left-1/3 w-64 h-64 bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 opacity-15 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-25 rounded-full blur-lg animate-float" style={{ animationDelay: '1s' }}></div>
+
+        {/* Additional mesh gradients */}
+        <div className="absolute top-1/4 left-1/2 w-96 h-96 bg-gradient-to-r from-pink-400 to-transparent opacity-10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-400 to-transparent opacity-10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
       </div>
-      
+
       <Header />
-      <main className="flex-grow pt-24 px-4 max-w-4xl mx-auto w-full relative z-10">
-        <div className="bg-white/60 backdrop-blur-md rounded-3xl shadow-2xl p-8 mt-4 border border-white/30 hover:shadow-3xl transition-all duration-500 hover:bg-white/70">
+      <main className="flex-grow pt-32 px-6 max-w-6xl mx-auto w-full relative z-10">
+        <div className="glass-card rounded-3xl shadow-glass p-12 mt-8 hover:shadow-glow-lg transition-all duration-700 group backdrop-blur-xl">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/portfolio" element={<Portfolio />} />
@@ -28,10 +32,17 @@ const App: React.FC = () => (
           </Routes>
         </div>
       </main>
-      <footer className="py-8 text-center text-gray-700 bg-gradient-to-r from-white/70 via-purple-50/80 to-pink-50/80 backdrop-blur-md mt-12 border-t border-white/40 relative z-10">
-        <p className="font-medium bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-          連絡先はTwitterのDMまでお越しください ✨
-        </p>
+      <footer className="py-12 text-center text-brand-dark bg-gradient-to-r from-white to-gray-50 opacity-80 backdrop-blur-md mt-16 border-t border-white border-opacity-50 relative z-10">
+        <div className="max-w-4xl mx-auto px-6">
+          <p className="text-lg font-medium gradient-text text-shadow">
+            連絡先はTwitterのDMまでお越しください ✨
+          </p>
+          <div className="mt-4 flex justify-center space-x-6 text-sm text-gray-600">
+            <span>© 2025 KYOUYAP</span>
+            <span>•</span>
+            <span>Made with 💜 & React</span>
+          </div>
+        </div>
       </footer>
     </div>
   </Router>
