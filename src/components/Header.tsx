@@ -5,49 +5,41 @@ const Header: React.FC = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', label: '🏠 Home', gradient: 'from-brand-primary to-brand-secondary' },
-    { path: '/portfolio', label: '💼 Portfolio', gradient: 'from-brand-secondary to-brand-accent' },
-    { path: '/contact', label: '📧 Contact', gradient: 'from-brand-primary to-brand-accent' },
+    { path: '/', label: '🏠 Home' },
+    { path: '/portfolio', label: '💼 Portfolio' },
+    { path: '/contact', label: '📧 Contact' },
   ];
 
   return (
-    <header className="fixed top-0 left-0 w-full glass-card border-b border-white border-opacity-30 shadow-glass z-50 backdrop-blur-xl">
+    <header className="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-100 border-b border-gray-700 shadow-lg z-50 backdrop-blur-none">
       <div className="max-w-7xl mx-auto">
-        <nav className="flex justify-between items-center px-8 h-20">
-
+        <nav className="flex justify-center items-center px-8 h-20">
           {/* Navigation */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               return (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 group ${isActive
-                    ? `bg-gradient-to-r ${item.gradient} text-white shadow-glow`
-                    : 'text-brand-dark hover:text-white hover:bg-white hover:bg-opacity-20'
+                  className={`relative px-8 py-4 rounded-full font-medium text-sm transition-all duration-300 transform hover:scale-105 ${isActive
+                    ? 'bg-white text-gray-900 shadow-xl'
+                    : 'text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-700 shadow-lg hover:shadow-xl'
                     }`}
                 >
                   <span className="relative z-10">{item.label}</span>
-                  {!isActive && (
-                    <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                  )}
-
-                  {/* Active indicator */}
+                  {/* Subtle glow effect for active item */}
                   {isActive && (
-                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white rounded-full"></div>
+                    <div className="absolute inset-0 bg-white rounded-full blur-sm opacity-30"></div>
+                  )}
+                  {/* Hover glow effect */}
+                  {!isActive && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-0 hover:opacity-20 transition-opacity duration-300"></div>
                   )}
                 </Link>
               );
             })}
           </div>
-
-          {/* Mobile menu button (可视化预留) */}
-          <button className="sm:hidden p-2 rounded-lg glass-button" aria-label="Menu">
-            <svg className="w-6 h-6 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
         </nav>
       </div>
     </header>
