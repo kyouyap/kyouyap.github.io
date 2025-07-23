@@ -175,15 +175,8 @@ const Portfolio = () => {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 whileHover={{ scale: 1.02 }}
               >
-                <div className="relative h-48 overflow-hidden">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-90`}></div>
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 mix-blend-overlay"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  
+                <div className="relative">
+                                                      
                   {/* ステータスバッジ */}
                   <div className="absolute top-4 right-4">
                     <span className={`px-3 py-1 text-sm font-medium rounded-full ${

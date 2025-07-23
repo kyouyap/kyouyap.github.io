@@ -28,10 +28,10 @@ const Home: React.FC = () => (
         transition={{ duration: 0.6, delay: 0.3 }}
       >
         <p className="text-xl md:text-2xl text-gray-800 font-medium leading-relaxed bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30 max-w-2xl mx-auto">
-          kyouyapのポートフォリオです 🌈<br />
-          閲覧していただき誠にありがとうございます 🎉<br />
+          AI/MLや自動化、データ分析を中心に、業務改善やシステム開発に携わっています。<br />
+          要件定義から実装、運用まで幅広く担当し、現場の課題解決を意識したものづくりを心がけています。<br />
           <span className="text-lg text-gray-600 mt-2 block">
-            機械学習とWeb開発を探求しています！
+            最近は生成AIやRAG、業務自動化などのプロジェクトが多めです。
           </span>
         </p>
       </motion.div>
