@@ -177,19 +177,6 @@ const Portfolio = () => {
               >
                 <div className="relative">
                                                       
-                  {/* ステータスバッジ */}
-                  <div className="absolute top-4 right-4">
-                    <span className={`px-3 py-1 text-sm font-medium rounded-full ${
-                      project.status === '完成' 
-                        ? 'bg-green-500 text-white' 
-                        : project.status === '開発中'
-                        ? 'bg-yellow-500 text-white'
-                        : 'bg-gray-500 text-white'
-                    }`}>
-                      {project.status}
-                    </span>
-                  </div>
-                  
                   {/* フィーチャーバッジ */}
                   {project.featured && (
                     <div className="absolute top-4 left-4">
@@ -223,14 +210,55 @@ const Portfolio = () => {
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tags.map((tag, tagIndex) => (
-                      <span 
-                        key={tagIndex}
-                        className={`px-4 py-2 bg-gradient-to-r ${project.gradient} text-white text-sm font-medium rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                    {project.tags.map((tag, tagIndex) => {
+                      // タグごとのShields.ioバッジURLマッピング
+                      const badgeMap: Record<string, { color: string; logo?: string }> = {
+                        Python: { color: "3776AB", logo: "python" },
+                        FastAPI: { color: "009688", logo: "fastapi" },
+                        Langchain: { color: "000000", logo: "langchain" },
+                        OpenAI: { color: "412991", logo: "openai" },
+                        ChatGPT: { color: "10A37F", logo: "openai" },
+                        AWS: { color: "232F3E", logo: "amazonaws" },
+                        Docker: { color: "2496ED", logo: "docker" },
+                        PostgreSQL: { color: "4169E1", logo: "postgresql" },
+                        React: { color: "61DAFB", logo: "react" },
+                        Vite: { color: "646CFF", logo: "vite" },
+                        TailwindCSS: { color: "06B6D4", logo: "tailwindcss" },
+                        Django: { color: "092E20", logo: "django" },
+                        Jenkins: { color: "D24939", logo: "jenkins" },
+                        "Vue.js": { color: "4FC08D", logo: "vuedotjs" },
+                        Databricks: { color: "FF3621", logo: "databricks" },
+                        Streamlit: { color: "FF4B4B", logo: "streamlit" },
+                        "scikit-learn": { color: "F7931E", logo: "scikitlearn" },
+                        pandas: { color: "150458", logo: "pandas" },
+                        PyTorch: { color: "EE4C2C", logo: "pytorch" },
+                        "LightGBM": { color: "9ACD32", logo: "lightgbm" },
+                        Quart: { color: "222222" },
+                        Whisper: { color: "5A5A5A" },
+                        BERT: { color: "F9DC3E" },
+                        NLP: { color: "1A237E" },
+                        RealtimeAPI: { color: "FF9800" },
+                        Azure: { color: "0078D4", logo: "azuredevops" },
+                        "Step Functions": { color: "FF4F1F" },
+                        "可視化ライブラリ": { color: "6366F1" },
+                        "プロンプトエンジニアリング": { color: "6366F1" },
+                        "音声認識": { color: "14B8A6" },
+                        "テキスト分析": { color: "F97316" },
+                        "アノテーション設計": { color: "F59E42" },
+                      };
+                      const badge = badgeMap[tag] || { color: "6B7280" };
+                      const logoParam = badge.logo ? `&logo=${encodeURIComponent(badge.logo)}&logoColor=white` : "";
+                      const url = `https://img.shields.io/badge/${encodeURIComponent(tag)}-${badge.color}?style=flat-square${logoParam}`;
+                      return (
+                        <img
+                          key={tagIndex}
+                          src={url}
+                          alt={tag}
+                          className="h-6"
+                          style={{ marginRight: 4, marginBottom: 4 }}
+                        />
+                      );
+                    })}
                   </div>
                   
                   <div className="flex gap-3">
@@ -276,14 +304,6 @@ const Portfolio = () => {
             もっと多くのプロジェクトをご覧になりたい方は...
           </p>
           <div className="flex gap-4 justify-center">
-            <a
-              href="https://github.com/kyouyap"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-            >
-              🌟 GitHub で全てを見る
-            </a>
             <button
               onClick={() => setSearchQuery('')}
               className="px-8 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white font-bold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
@@ -292,21 +312,6 @@ const Portfolio = () => {
             </button>
           </div>
           
-          {/* 統計情報 */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
-            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-              <div className="text-2xl font-bold text-purple-600">{projects.length}</div>
-              <div className="text-gray-600">総プロジェクト数</div>
-            </div>
-            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-              <div className="text-2xl font-bold text-green-600">{projects.filter(p => p.status === '完成').length}</div>
-              <div className="text-gray-600">完成済み</div>
-            </div>
-            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-              <div className="text-2xl font-bold text-blue-600">{categories.length}</div>
-              <div className="text-gray-600">技術分野</div>
-            </div>
-          </div>
         </motion.div>
       </div>
     </div>

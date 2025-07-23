@@ -18,24 +18,12 @@ const Contact: React.FC = () => (
       <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/40 mb-8">
         <p className="text-xl md:text-2xl text-gray-800 font-medium leading-relaxed mb-6">
           お気軽にお声がけください！ 🎉<br />
-          <span className="text-lg text-gray-600">
-            プロジェクトのご相談やご質問など、お待ちしています
-          </span>
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a
-            href="https://twitter.com/kyouyap"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center px-6 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-          >
-            <span className="text-2xl mr-3">🐦</span>
-            Twitter DM
-          </a>
           
           <a
-            href="mailto:contact@kyouyap.dev"
+            href="mailto:kyouyap@gmail.com"
             className="flex items-center px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
           >
             <span className="text-2xl mr-3">📧</span>
@@ -51,22 +39,18 @@ const Contact: React.FC = () => (
         </h3>
         <div className="flex flex-wrap justify-center gap-3">
           <span className="px-4 py-2 bg-gradient-to-r from-gray-700 to-gray-900 text-white rounded-full text-sm font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer">
-            💻 GitHub
+            <a href="https://github.com/kyouyap" target="_blank" rel="noopener noreferrer">
+              💻 GitHub
+            </a>
           </span>
-          <span className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-full text-sm font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer">
-            📘 LinkedIn
-          </span>
-          <span className="px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full text-sm font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer">
-            📝 Blog
+          <span className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-full text-sm font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer">
+            <a href="https://twitter.com/kyouyap" target="_blank" rel="noopener noreferrer">
+              🐦 Twitter
+            </a>
           </span>
         </div>
       </div>
       
-      <div className="mt-8 text-center">
-        <p className="text-gray-600 font-medium">
-          💝 Let's create something amazing together! 💝
-        </p>
-      </div>
     </div>
   </section>
 );
