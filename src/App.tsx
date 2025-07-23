@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Portfolio from "./pages/Portfolio";
-import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Header from "./components/Header";
 
@@ -27,20 +26,14 @@ const App: React.FC = () => (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
       </main>
       <footer className="py-12 text-center text-brand-dark bg-gradient-to-r from-white to-gray-50 opacity-80 backdrop-blur-md mt-16 border-t border-white border-opacity-50 relative z-10">
         <div className="max-w-4xl mx-auto px-6">
-          <p className="text-lg font-medium gradient-text text-shadow">
-            連絡先はTwitterのDMまでお越しください ✨
-          </p>
           <div className="mt-4 flex justify-center space-x-6 text-sm text-gray-600">
             <span>© 2025 KYOUYAP</span>
-            <span>•</span>
-            <span>Made with 💜 & React</span>
           </div>
         </div>
       </footer>
