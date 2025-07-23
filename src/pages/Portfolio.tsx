@@ -88,7 +88,7 @@ const Portfolio = () => {
   const categories = getCategories();
 
   return (
-    <div className="relative py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 rounded-3xl shadow-2xl overflow-hidden">
+    <div className="relative py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 rounded-3xl overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-blue-300 to-purple-300 rounded-full opacity-15 animate-pulse"></div>
@@ -98,7 +98,7 @@ const Portfolio = () => {
 
       <div className="relative z-10 px-8">
         <motion.h1
-          className="text-4xl md:text-6xl font-extrabold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 drop-shadow-lg"
+          className="text-4xl md:text-6xl font-extrabold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -107,15 +107,14 @@ const Portfolio = () => {
         </motion.h1>
 
         <motion.p
-          className="text-xl text-gray-700 text-center mb-8 font-medium bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30 max-w-3xl mx-auto"
+          className="text-xl text-gray-700 text-center mb-8 font-medium bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-white/30 max-w-3xl mx-auto"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          これまでに手がけたプロジェクトの一部をご紹介します 🚀<br />
-          <span className="text-lg text-gray-600">機械学習からWeb開発まで、幅広い分野で挑戦しています！</span><br />
+          これまでに手がけたプロジェクトの一部をご紹介します<br />
           <span className="text-sm text-gray-500 mt-2 block">
-            💼 実務プロジェクトは技術スタックと抽象化された内容のみ記載しています
+            実務プロジェクトは技術スタックと抽象化された内容のみ記載しています
           </span>
         </motion.p>
 
@@ -133,7 +132,7 @@ const Portfolio = () => {
               placeholder="🔍 プロジェクトを検索..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-6 py-4 text-lg bg-white/80 backdrop-blur-sm border-2 border-purple-200 rounded-2xl shadow-lg focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300"
+              className="w-full px-6 py-4 text-lg bg-white/80 backdrop-blur-sm border-2 border-purple-200 rounded-2xl focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300"
             />
           </div>
 
@@ -142,8 +141,8 @@ const Portfolio = () => {
             <button
               onClick={() => setSelectedCategory('all')}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === 'all'
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105'
-                  : 'bg-white/80 text-gray-700 hover:bg-white/90 shadow-md hover:shadow-lg'
+                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105'
+                : 'bg-white/80 text-gray-700 hover:bg-white/90'
                 }`}
             >
               🌟 すべて
@@ -151,8 +150,8 @@ const Portfolio = () => {
             <button
               onClick={() => setSelectedCategory('featured')}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === 'featured'
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105'
-                  : 'bg-white/80 text-gray-700 hover:bg-white/90 shadow-md hover:shadow-lg'
+                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105'
+                : 'bg-white/80 text-gray-700 hover:bg-white/90'
                 }`}
             >
               ✨ 注目
@@ -163,8 +162,8 @@ const Portfolio = () => {
                 setSelectedCategory('work');
               }}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === 'work'
-                  ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg scale-105'
-                  : 'bg-white/80 text-gray-700 hover:bg-white/90 shadow-md hover:shadow-lg hover:scale-105'
+                ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white scale-105'
+                : 'bg-white/80 text-gray-700 hover:bg-white/90 hover:scale-105'
                 }`}
             >
               💼 実務経験
@@ -174,8 +173,8 @@ const Portfolio = () => {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${selectedCategory === category
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg scale-105'
-                    : 'bg-white/80 text-gray-700 hover:bg-white/90 shadow-md hover:shadow-lg'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105'
+                  : 'bg-white/80 text-gray-700 hover:bg-white/90'
                   }`}
               >
                 {category}
@@ -200,23 +199,13 @@ const Portfolio = () => {
             filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className="group relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-white/40 hover:bg-white/90"
+                className="group relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-500 border border-white/40 hover:bg-white/90"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 whileHover={{ scale: 1.02 }}
               >
-                <div className="relative">
 
-                  {/* フィーチャーバッジ */}
-                  {project.featured && (
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 text-sm font-medium rounded-full bg-red-500 text-white">
-                        ✨ 注目
-                      </span>
-                    </div>
-                  )}
-                </div>
 
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-3">
@@ -263,7 +252,7 @@ const Portfolio = () => {
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                        className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-full transform hover:scale-105 transition-all duration-300"
                       >
                         🔍 デモを見る
                       </a>
@@ -273,7 +262,7 @@ const Portfolio = () => {
                         href={project.codeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-6 py-2 bg-gradient-to-r from-gray-600 to-gray-800 text-white font-medium rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                        className="px-6 py-2 bg-gradient-to-r from-gray-600 to-gray-800 text-white font-medium rounded-full transform hover:scale-105 transition-all duration-300"
                       >
                         💻 コード
                       </a>

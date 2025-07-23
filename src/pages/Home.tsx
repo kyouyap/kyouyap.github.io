@@ -62,7 +62,7 @@ const skillCategories = [
 ];
 
 const Home: React.FC = () => (
-  <section className="relative text-center py-20 bg-gradient-to-br from-purple-100 via-pink-50 via-blue-50 to-cyan-100 rounded-3xl shadow-2xl overflow-hidden">
+  <section className="relative text-center py-20 bg-gradient-to-br from-purple-100 via-pink-50 via-blue-50 to-cyan-100 rounded-3xl overflow-hidden">
     {/* Decorative background elements */}
     <div className="absolute inset-0 pointer-events-none">
       <div className="absolute top-8 left-8 w-20 h-20 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full opacity-20 animate-bounce"></div>
@@ -74,7 +74,7 @@ const Home: React.FC = () => (
     <div className="relative z-10">
       {/* Hero */}
       <motion.h1
-        className="text-5xl md:text-7xl font-extrabold mb-8 bg-gradient-to-r from-purple-600 via-pink-600 via-blue-600 to-cyan-600 text-transparent bg-clip-text drop-shadow-2xl"
+        className="text-5xl md:text-7xl font-extrabold mb-8 bg-gradient-to-r from-purple-600 via-pink-600 via-blue-600 to-cyan-600 text-transparent bg-clip-text"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -88,7 +88,7 @@ const Home: React.FC = () => (
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.3 }}
       >
-        <p className="text-xl md:text-2xl text-gray-800 font-medium leading-relaxed bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30 max-w-2xl mx-auto">
+        <p className="text-xl md:text-2xl text-gray-800 font-medium leading-relaxed bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-white/30 max-w-2xl mx-auto">
           AI/MLや自動化、データ分析を中心に、業務改善やシステム開発に携わっています。<br />
           要件定義から実装、運用まで幅広く担当し、現場の課題解決を意識したものづくりを心がけています。<br />
           <span className="text-lg text-gray-600 mt-2 block">
@@ -123,13 +123,13 @@ const Home: React.FC = () => (
       >
         <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">📊 GitHub 統計</h2>
         <div className="flex flex-wrap justify-center gap-6">
-          <img src={`https://github-readme-stats.vercel.app/api?username=${githubId}&theme=dark&hide_border=false&count_private=true`} alt="GitHub Stats" className="rounded-xl shadow-lg" />
+          <img src={`https://github-readme-stats.vercel.app/api?username=${githubId}&theme=dark&hide_border=false&count_private=true`} alt="GitHub Stats" className="rounded-xl" />
         </div>
         <div className="flex flex-wrap justify-center gap-6">
-          <img src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${githubId}&layout=compact`} alt="Top Langs" className="rounded-xl shadow-lg" />
+          <img src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${githubId}&layout=compact`} alt="Top Langs" className="rounded-xl" />
         </div>
         <div className="flex flex-wrap justify-center gap-6 mt-4">
-          <img src={`https://github-contributor-stats.vercel.app/api?username=${githubId}&limit=5&combine_all_yearly_contributions=true`} alt="Contributor Stats" className="rounded-xl shadow-lg" />
+          <img src={`https://github-contributor-stats.vercel.app/api?username=${githubId}&limit=5&combine_all_yearly_contributions=true`} alt="Contributor Stats" className="rounded-xl" />
         </div>
       </motion.div>
 
@@ -175,21 +175,21 @@ const Home: React.FC = () => (
         <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">💡 興味・関心</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <div className="text-center group">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-400 text-white text-3xl mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-400 text-white text-3xl mb-4 transition-all duration-300 group-hover:scale-110">
               📊
             </div>
             <h4 className="text-xl font-bold text-brand-dark mb-3">データサイエンス</h4>
             <p className="text-gray-600 leading-relaxed">機械学習アルゴリズムの研究</p>
           </div>
           <div className="text-center group">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 text-white text-3xl mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-blue-400 to-purple-400 text-white text-3xl mb-4 transition-all duration-300 group-hover:scale-110">
               🎨
             </div>
             <h4 className="text-xl font-bold text-brand-dark mb-3">UI/UX Design</h4>
             <p className="text-gray-600 leading-relaxed">ユーザーフレンドリーなWebアプリケーション開発</p>
           </div>
           <div className="text-center group">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-orange-400 to-red-400 text-white text-3xl mb-4 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r from-orange-400 to-red-400 text-white text-3xl mb-4 transition-all duration-300 group-hover:scale-110">
               🔧
             </div>
             <h4 className="text-xl font-bold text-brand-dark mb-3">テクノロジー</h4>
@@ -207,7 +207,7 @@ const Home: React.FC = () => (
       >
         <div className="glass-card rounded-3xl p-8 max-w-2xl mx-auto border-white border-opacity-30 backdrop-blur-xl">
           <motion.div
-            className="inline-flex items-center px-8 py-4 bg-gradient-brand text-white font-bold rounded-2xl shadow-glow hover:shadow-glow-lg transition-all duration-300 cursor-pointer"
+            className="inline-flex items-center px-8 py-4 bg-gradient-brand text-white font-bold rounded-2xl transition-all duration-300 cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

@@ -22,7 +22,7 @@ const App: React.FC = () => (
 
       <Header />
       <main className="flex-grow pt-32 px-6 max-w-6xl mx-auto w-full relative z-10">
-        <div className="glass-card rounded-3xl shadow-glass p-12 mt-8 hover:shadow-glow-lg transition-all duration-700 group backdrop-blur-xl">
+        <div className="glass-card rounded-3xl p-12 mt-8 transition-all duration-700 group backdrop-blur-xl">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/portfolio" element={<Portfolio />} />
