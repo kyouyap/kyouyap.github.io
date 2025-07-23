@@ -55,10 +55,6 @@ export class ProjectManager {
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
       
-      // 完成プロジェクトを優先
-      if (a.status === '完成' && b.status !== '完成') return -1;
-      if (a.status !== '完成' && b.status === '完成') return 1;
-      
       return 0;
     });
   }
@@ -78,13 +74,6 @@ export class ProjectManager {
     return techCount;
   }
 
-  /**
-   * プロジェクトの完成率を計算
-   */
-  getCompletionRate(): number {
-    const completedProjects = this.projects.filter(p => p.status === '完成').length;
-    return this.projects.length > 0 ? (completedProjects / this.projects.length) * 100 : 0;
-  }
 
   /**
    * 最新のプロジェクトを取得（IDベース）

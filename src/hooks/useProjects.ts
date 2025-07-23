@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { Project, ProjectCategory, ProjectStatus } from '../types/Project';
+import type { Project, ProjectCategory } from '../types/Project';
 import projectsData from '../data/projects.json';
 
 export const useProjects = () => {
@@ -27,9 +27,6 @@ export const useProjects = () => {
     return projects.filter(project => project.category === category);
   };
 
-  const filterByStatus = (status: ProjectStatus): Project[] => {
-    return projects.filter(project => project.status === status);
-  };
 
   const getFeaturedProjects = (): Project[] => {
     return projects.filter(project => project.featured);
@@ -60,7 +57,6 @@ export const useProjects = () => {
     loading,
     error,
     filterByCategory,
-    filterByStatus,
     getFeaturedProjects,
     getProjectById,
     searchProjects,
