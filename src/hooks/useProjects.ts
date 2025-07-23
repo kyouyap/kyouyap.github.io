@@ -8,16 +8,16 @@ export const useProjects = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadProjects = async () => {
-      try {
-        // JSONファイルからプロジェクトデータを読み込み
-        setProjects(projectsData as Project[]);
-        setLoading(false);
-      } catch (err) {
-        setError('プロジェクトデータの読み込みに失敗しました');
-        setLoading(false);
-      }
-    };
+      const loadProjects = async () => {
+        try {
+          // JSONファイルからプロジェクトデータを読み込み
+          setProjects(projectsData as Project[]);
+          setLoading(false);
+        } catch {
+          setError('プロジェクトデータの読み込みに失敗しました');
+          setLoading(false);
+        }
+      };
 
     loadProjects();
   }, []);

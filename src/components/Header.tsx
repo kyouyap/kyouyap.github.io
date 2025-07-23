@@ -52,7 +52,7 @@ const Header: React.FC = () => {
           </div>
           
           {/* Mobile menu button (可视化预留) */}
-          <button className="sm:hidden p-2 rounded-lg glass-button">
+          <button className="sm:hidden p-2 rounded-lg glass-button" aria-label="Menu">
             <svg className="w-6 h-6 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>

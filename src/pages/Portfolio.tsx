@@ -3,6 +3,41 @@ import { useState } from 'react';
 import { useProjects } from '../hooks/useProjects';
 import type { ProjectCategory } from '../types/Project';
 
+const badgeMap: Record<string, { color: string; logo?: string }> = {
+  Python: { color: '3776AB', logo: 'python' },
+  FastAPI: { color: '009688', logo: 'fastapi' },
+  Langchain: { color: '000000', logo: 'langchain' },
+  OpenAI: { color: '412991', logo: 'openai' },
+  ChatGPT: { color: '10A37F', logo: 'openai' },
+  AWS: { color: '232F3E', logo: 'amazonaws' },
+  Docker: { color: '2496ED', logo: 'docker' },
+  PostgreSQL: { color: '4169E1', logo: 'postgresql' },
+  React: { color: '61DAFB', logo: 'react' },
+  Vite: { color: '646CFF', logo: 'vite' },
+  TailwindCSS: { color: '06B6D4', logo: 'tailwindcss' },
+  Django: { color: '092E20', logo: 'django' },
+  Jenkins: { color: 'D24939', logo: 'jenkins' },
+  'Vue.js': { color: '4FC08D', logo: 'vuedotjs' },
+  Databricks: { color: 'FF3621', logo: 'databricks' },
+  Streamlit: { color: 'FF4B4B', logo: 'streamlit' },
+  'scikit-learn': { color: 'F7931E', logo: 'scikitlearn' },
+  pandas: { color: '150458', logo: 'pandas' },
+  PyTorch: { color: 'EE4C2C', logo: 'pytorch' },
+  LightGBM: { color: '9ACD32', logo: 'lightgbm' },
+  Quart: { color: '222222' },
+  Whisper: { color: '5A5A5A' },
+  BERT: { color: 'F9DC3E' },
+  NLP: { color: '1A237E' },
+  RealtimeAPI: { color: 'FF9800' },
+  Azure: { color: '0078D4', logo: 'azuredevops' },
+  'Step Functions': { color: 'FF4F1F' },
+  '可視化ライブラリ': { color: '6366F1' },
+  'プロンプトエンジニアリング': { color: '6366F1' },
+  '音声認識': { color: '14B8A6' },
+  'テキスト分析': { color: 'F97316' },
+  'アノテーション設計': { color: 'F59E42' },
+};
+
 const Portfolio = () => {
   const { 
     projects, 
@@ -211,41 +246,6 @@ const Portfolio = () => {
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.tags.map((tag, tagIndex) => {
-                      // タグごとのShields.ioバッジURLマッピング
-                      const badgeMap: Record<string, { color: string; logo?: string }> = {
-                        Python: { color: "3776AB", logo: "python" },
-                        FastAPI: { color: "009688", logo: "fastapi" },
-                        Langchain: { color: "000000", logo: "langchain" },
-                        OpenAI: { color: "412991", logo: "openai" },
-                        ChatGPT: { color: "10A37F", logo: "openai" },
-                        AWS: { color: "232F3E", logo: "amazonaws" },
-                        Docker: { color: "2496ED", logo: "docker" },
-                        PostgreSQL: { color: "4169E1", logo: "postgresql" },
-                        React: { color: "61DAFB", logo: "react" },
-                        Vite: { color: "646CFF", logo: "vite" },
-                        TailwindCSS: { color: "06B6D4", logo: "tailwindcss" },
-                        Django: { color: "092E20", logo: "django" },
-                        Jenkins: { color: "D24939", logo: "jenkins" },
-                        "Vue.js": { color: "4FC08D", logo: "vuedotjs" },
-                        Databricks: { color: "FF3621", logo: "databricks" },
-                        Streamlit: { color: "FF4B4B", logo: "streamlit" },
-                        "scikit-learn": { color: "F7931E", logo: "scikitlearn" },
-                        pandas: { color: "150458", logo: "pandas" },
-                        PyTorch: { color: "EE4C2C", logo: "pytorch" },
-                        "LightGBM": { color: "9ACD32", logo: "lightgbm" },
-                        Quart: { color: "222222" },
-                        Whisper: { color: "5A5A5A" },
-                        BERT: { color: "F9DC3E" },
-                        NLP: { color: "1A237E" },
-                        RealtimeAPI: { color: "FF9800" },
-                        Azure: { color: "0078D4", logo: "azuredevops" },
-                        "Step Functions": { color: "FF4F1F" },
-                        "可視化ライブラリ": { color: "6366F1" },
-                        "プロンプトエンジニアリング": { color: "6366F1" },
-                        "音声認識": { color: "14B8A6" },
-                        "テキスト分析": { color: "F97316" },
-                        "アノテーション設計": { color: "F59E42" },
-                      };
                       const badge = badgeMap[tag] || { color: "6B7280" };
                       const logoParam = badge.logo ? `&logo=${encodeURIComponent(badge.logo)}&logoColor=white` : "";
                       const url = `https://img.shields.io/badge/${encodeURIComponent(tag)}-${badge.color}?style=flat-square${logoParam}`;
