@@ -88,7 +88,7 @@ const Home: React.FC = () => (
       <div className="bg-gray-100 rounded-lg p-6 mb-8 border border-white/40">
         <p className="text-lg text-gray-800 leading-relaxed">
           AI/MLや自動化、データ分析を中心に、業務改善やシステム開発に携わっています。<br />
-          要件定義から実装、運用まで幅広く担当し、現場の課題解決を意識したものづくりを心がけています。<br />
+          要件定義から実装、運用まで幅広く担当しています。<br />
           <span className="text-base text-gray-600 mt-2 block">
             最近は生成AIやRAG、業務自動化などのプロジェクトが多めです。
           </span>
