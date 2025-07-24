@@ -1,7 +1,7 @@
 [
     {
         "id": "ai-agent-development",
-        "title": "🤖 リアルタイムAIエージェント開発",
+        "title": "リアルタイムAIエージェント開発",
         "description": "バーチャルエージェントのリアルタイム応答システムの設計・実装。要件定義からDevOps整備、チーム育成まで幅広く担当。",
         "tags": [
             "Langchain",

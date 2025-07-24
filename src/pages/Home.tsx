@@ -83,7 +83,7 @@ const Home: React.FC = () => (
       transition={{ duration: 0.8 }}
     >
       <h1 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900">
-        ✨ KYOUYAP'S PORTFOLIO ✨
+        KYOUYAP'S PORTFOLIO
       </h1>
       <div className="bg-gray-100 rounded-lg p-6 mb-8 border border-white/40">
         <p className="text-lg text-gray-800 leading-relaxed">

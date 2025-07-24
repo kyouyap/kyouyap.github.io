@@ -112,7 +112,7 @@ const Portfolio = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          これまでに手がけたプロジェクトの一部をご紹介します<br />
+          これまでに手がけたプロジェクトの一部を記載<br />
           <span className="text-sm text-gray-500 mt-2 block">
             実務プロジェクトは技術スタックと抽象化された内容のみ記載しています
           </span>
