@@ -17,7 +17,7 @@ const selected = all
   .sort((a, b) => b.data.sortKey.localeCompare(a.data.sortKey));
 const archive = all
   .filter((p) => !p.data.selected)
-  .sort((a, b) => b.data.sortKey.localeCompare(a.data.sortKey));
+  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 
 const PATHNAME = "/";
 const GH = "kyouyap";

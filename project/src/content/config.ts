@@ -9,6 +9,7 @@ const projects = defineCollection({
     role: z.enum(["lead", "member"]).optional(),
     period: z.string(),
     sortKey: z.string(), // YYYY-MM, used for ordering
+    order: z.number().optional(),    // explicit display order for archive list
     selected: z.boolean().default(false),
     href: z.string().optional(),
     description_ja: z.array(z.string()),

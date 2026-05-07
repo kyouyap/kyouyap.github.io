@@ -13,7 +13,7 @@ import { en as t } from "@/i18n/en";
 
 const all = await getCollection("projects");
 const selected = all.filter((p) => p.data.selected).sort((a, b) => b.data.sortKey.localeCompare(a.data.sortKey));
-const archive  = all.filter((p) => !p.data.selected).sort((a, b) => b.data.sortKey.localeCompare(a.data.sortKey));
+const archive  = all.filter((p) => !p.data.selected).sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 
 const PATHNAME = "/en/";
 const GH = "kyouyap";
