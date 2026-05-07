@@ -1,0 +1,172 @@
+digraph STYLE_GUIDE {
+    // プロセス DSL のスタイルガイド（DSL 自身で記述）
+
+    // ノードタイプの例とそのシェイプ
+    subgraph cluster_node_types {
+        label="ノードの種類とシェイプ";
+
+        // 質問はダイヤモンド
+        "これは質問？" [shape=diamond];
+
+        // アクションはボックス（デフォルト）
+        "アクションを実行" [shape=box];
+
+        // コマンドはプレーンテキスト
+        "git commit -m 'msg'" [shape=plaintext];
+
+        // 状態は楕円
+        "現在の状態" [shape=ellipse];
+
+        // 警告は八角形
+        "注意: 重大な警告" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+
+        // 開始/終了は二重円
+        "プロセス開始" [shape=doublecircle];
+        "プロセス完了" [shape=doublecircle];
+
+        // 各種の例
+        "テストは通る？" [shape=diamond];
+        "テストを先に書く" [shape=box];
+        "npm test" [shape=plaintext];
+        "行き詰まっている" [shape=ellipse];
+        "絶対に git add -A を使わない" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+    }
+
+    // エッジのラベル規則
+    subgraph cluster_edge_types {
+        label="エッジラベル";
+
+        "二択の判断？" [shape=diamond];
+        "Yes のパス" [shape=box];
+        "No のパス" [shape=box];
+
+        "二択の判断？" -> "Yes のパス" [label="yes"];
+        "二択の判断？" -> "No のパス" [label="no"];
+
+        "複数の選択肢？" [shape=diamond];
+        "選択肢 A" [shape=box];
+        "選択肢 B" [shape=box];
+        "選択肢 C" [shape=box];
+
+        "複数の選択肢？" -> "選択肢 A" [label="条件 A"];
+        "複数の選択肢？" -> "選択肢 B" [label="条件 B"];
+        "複数の選択肢？" -> "選択肢 C" [label="その他"];
+
+        "プロセス A 完了" [shape=doublecircle];
+        "プロセス B 開始" [shape=doublecircle];
+
+        "プロセス A 完了" -> "プロセス B 開始" [label="トリガー", style=dotted];
+    }
+
+    // 命名パターン
+    subgraph cluster_naming_patterns {
+        label="命名パターン";
+
+        // 質問は ? で終わる
+        "X をすべき？";
+        "Y にできる？";
+        "Z は正しい？";
+        "W をやった？";
+
+        // アクションは動詞で始まる
+        "テストを書く";
+        "パターンを検索";
+        "変更をコミット";
+        "助けを求める";
+
+        // コマンドはリテラル
+        "grep -r 'pattern' .";
+        "git status";
+        "npm run build";
+
+        // 状態は状況を説明
+        "テスト失敗中";
+        "ビルド完了";
+        "エラーで行き詰まり";
+    }
+
+    // プロセス構造テンプレート
+    subgraph cluster_structure {
+        label="プロセス構造テンプレート";
+
+        "トリガー: 何かが起きる" [shape=ellipse];
+        "初期チェック？" [shape=diamond];
+        "メインアクション" [shape=box];
+        "git status" [shape=plaintext];
+        "次のチェック？" [shape=diamond];
+        "代替アクション" [shape=box];
+        "注意: これはやらない" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+        "プロセス完了" [shape=doublecircle];
+
+        "トリガー: 何かが起きる" -> "初期チェック？";
+        "初期チェック？" -> "メインアクション" [label="yes"];
+        "初期チェック？" -> "代替アクション" [label="no"];
+        "メインアクション" -> "git status";
+        "git status" -> "次のチェック？";
+        "次のチェック？" -> "プロセス完了" [label="ok"];
+        "次のチェック？" -> "注意: これはやらない" [label="問題あり"];
+        "代替アクション" -> "プロセス完了";
+    }
+
+    // どのシェイプを使うかの判断
+    subgraph cluster_shape_rules {
+        label="各シェイプの使い分け";
+
+        "シェイプの選択" [shape=ellipse];
+
+        "判断か？" [shape=diamond];
+        "ダイヤモンドを使う" [shape=diamond, style=filled, fillcolor=lightblue];
+
+        "コマンドか？" [shape=diamond];
+        "プレーンテキストを使う" [shape=plaintext, style=filled, fillcolor=lightgray];
+
+        "警告か？" [shape=diamond];
+        "八角形を使う" [shape=octagon, style=filled, fillcolor=pink];
+
+        "開始/終了か？" [shape=diamond];
+        "二重円を使う" [shape=doublecircle, style=filled, fillcolor=lightgreen];
+
+        "状態か？" [shape=diamond];
+        "楕円を使う" [shape=ellipse, style=filled, fillcolor=lightyellow];
+
+        "デフォルト: ボックスを使う" [shape=box, style=filled, fillcolor=lightcyan];
+
+        "シェイプの選択" -> "判断か？";
+        "判断か？" -> "ダイヤモンドを使う" [label="yes"];
+        "判断か？" -> "コマンドか？" [label="no"];
+        "コマンドか？" -> "プレーンテキストを使う" [label="yes"];
+        "コマンドか？" -> "警告か？" [label="no"];
+        "警告か？" -> "八角形を使う" [label="yes"];
+        "警告か？" -> "開始/終了か？" [label="no"];
+        "開始/終了か？" -> "二重円を使う" [label="yes"];
+        "開始/終了か？" -> "状態か？" [label="no"];
+        "状態か？" -> "楕円を使う" [label="yes"];
+        "状態か？" -> "デフォルト: ボックスを使う" [label="no"];
+    }
+
+    // 良い例 vs 悪い例
+    subgraph cluster_examples {
+        label="良い例 vs 悪い例";
+
+        // 良い例：具体的で正しいシェイプ
+        "テスト失敗" [shape=ellipse];
+        "エラーメッセージを読む" [shape=box];
+        "再現できる？" [shape=diamond];
+        "git diff HEAD~1" [shape=plaintext];
+        "絶対にエラーを無視しない" [shape=octagon, style=filled, fillcolor=red, fontcolor=white];
+
+        "テスト失敗" -> "エラーメッセージを読む";
+        "エラーメッセージを読む" -> "再現できる？";
+        "再現できる？" -> "git diff HEAD~1" [label="yes"];
+
+        // 悪い例：曖昧で間違ったシェイプ
+        bad_1 [label="何かおかしい", shape=box];  // 状態なので楕円にすべき
+        bad_2 [label="直す", shape=box];  // 曖昧すぎる
+        bad_3 [label="確認", shape=box];  // ダイヤモンドにすべき
+        bad_4 [label="コマンド実行", shape=box];  // 実際のコマンドをプレーンテキストにすべき
+
+        bad_1 -> bad_2;
+        bad_2 -> bad_3;
+        bad_3 -> bad_4;
+    }
+}
