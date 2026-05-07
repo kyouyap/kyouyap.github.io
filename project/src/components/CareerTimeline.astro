@@ -1,11 +1,11 @@
 ---
 // project/src/components/CareerTimeline.astro
-export type TimelineRow =
-  | { kind: "job"; period: string; org: string; note?: string }
-  | { kind: "promotion"; date: string; title: string }
-  | { kind: "edu"; period: string; degree: string; org: string }
-  | { kind: "cert"; period: string; name: string }
-  | { kind: "rule" };
+export interface RowJob       { kind: "job";       period: string; org: string; note?: string }
+export interface RowPromotion { kind: "promotion"; date: string;   title: string }
+export interface RowEdu       { kind: "edu";       period: string; degree: string; org: string }
+export interface RowCert      { kind: "cert";      period: string; name: string }
+export interface RowRule      { kind: "rule" }
+export type TimelineRow = RowJob | RowPromotion | RowEdu | RowCert | RowRule;
 export interface Props { rows: TimelineRow[]; }
 const { rows } = Astro.props;
 ---
