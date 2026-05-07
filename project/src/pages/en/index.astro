@@ -17,8 +17,28 @@ const archive  = all.filter((p) => !p.data.selected).sort((a, b) => b.data.sortK
 
 const PATHNAME = "/en/";
 const GH = "kyouyap";
-const ghStats = (path: string) =>
-  `https://github-readme-stats.vercel.app/api${path}?username=${GH}&hide_border=true&bg_color=0d0e0c&title_color=d2b471&text_color=d6d6d0&icon_color=6b94a8&theme=ayu-mirage`;
+const ghStats = (path: string) => {
+  const base = `https://github-readme-stats.vercel.app/api${path}`;
+  const params =
+    "username=" + GH +
+    "&hide_border=true" +
+    "&bg_color=0d0e0c" +
+    "&title_color=d2b471" +
+    "&text_color=d6d6d0" +
+    "&icon_color=6b94a8" +
+    "&theme=ayu-mirage";
+  return `${base}${path.includes("?") ? "&" : "?"}${params}`;
+};
+const ghStreak =
+  `https://github-readme-streak-stats.herokuapp.com/?user=${GH}` +
+  "&hide_border=true" +
+  "&background=0d0e0c" +
+  "&stroke=2c2d29" +
+  "&ring=d2b471" +
+  "&fire=d2b471" +
+  "&currStreakLabel=d6d6d0" +
+  "&sideLabels=8a8a82" +
+  "&dates=8a8a82";
 ---
 <BaseLayout title={t.meta.title} description={t.meta.description} lang="en" pathname={PATHNAME}>
   <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--s4)">
@@ -84,6 +104,7 @@ const ghStats = (path: string) =>
     <div style="display:flex; flex-wrap:wrap; gap: var(--s2)">
       <img src={ghStats("")} alt="GitHub stats" loading="lazy" style="max-width:100%" />
       <img src={ghStats("/top-langs/?layout=compact")} alt="Top languages" loading="lazy" style="max-width:100%" />
+      <img src={ghStreak} alt="GitHub streak" loading="lazy" style="max-width:100%" />
     </div>
   </Section>
 
