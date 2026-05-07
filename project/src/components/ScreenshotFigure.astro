@@ -1,0 +1,31 @@
+---
+// project/src/components/ScreenshotFigure.astro
+export interface Props {
+  src: string;          // /pairkan/01.png (under /public)
+  alt: string;
+  caption?: string;
+  width: number;
+  height: number;
+}
+const { src, alt, caption, width, height } = Astro.props;
+const webp = src.replace(/\.png$|\.jpg$|\.jpeg$/i, ".webp");
+---
+<figure class="ss">
+  <picture>
+    <source srcset={webp} type="image/webp" />
+    <img src={src} alt={alt} width={width} height={height} loading="lazy" />
+  </picture>
+  {caption && <figcaption>// {caption}</figcaption>}
+</figure>
+
+<style>
+  .ss { margin: var(--s4) 0; }
+  .ss img {
+    display: block; max-width: 100%; height: auto;
+    border: 1px solid var(--border); background: var(--bg-soft);
+  }
+  figcaption {
+    color: var(--comment); font-family: var(--font-mono);
+    font-size: var(--fs-xs); margin-top: var(--s1);
+  }
+</style>
