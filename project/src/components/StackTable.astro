@@ -1,0 +1,53 @@
+---
+// project/src/components/StackTable.astro
+export interface Row {
+  axis: string;
+  chosen: string;
+  considered: string;
+  why: string;
+}
+export interface Props { rows: Row[]; note?: string; }
+const { rows, note } = Astro.props;
+---
+<div class="st">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>chosen</th>
+        <th>considered</th>
+        <th>why</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <th scope="row">{r.axis}</th>
+          <td class="chosen">{r.chosen}</td>
+          <td class="considered">{r.considered}</td>
+          <td class="why">{r.why}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  {note && <p class="note">note: {note}</p>}
+</div>
+
+<style>
+  .st { font-family: var(--font-mono); font-size: var(--fs-sm); }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 6px 8px; text-align: left; vertical-align: top; }
+  thead th { color: var(--comment); font-weight: 400; border-bottom: 1px solid var(--rule); }
+  tbody th { color: var(--accent-2); font-weight: 400; white-space: nowrap; }
+  .chosen { color: var(--accent); font-weight: 600; }
+  .considered { color: var(--fg-mute); }
+  .why { color: var(--fg); }
+  .note { color: var(--comment); margin-top: var(--s4); white-space: pre-wrap; }
+  @media (max-width: 640px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    thead { display: none; }
+    tbody tr { border-top: 1px dashed var(--border); padding: 6px 0; }
+    tbody th { display: block; padding-bottom: 2px; }
+    td { padding: 2px 0; }
+  }
+</style>
