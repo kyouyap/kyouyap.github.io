@@ -1,0 +1,100 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LangSwitcher from "@/components/LangSwitcher.astro";
+import TerminalHero from "@/components/TerminalHero.astro";
+import Section from "@/components/Section.astro";
+import ScreenshotFigure from "@/components/ScreenshotFigure.astro";
+import StackTable from "@/components/StackTable.astro";
+
+const entry = await getEntry("projects", "pairkan");
+if (!entry) throw new Error("pairkan content entry missing");
+
+const PATHNAME = "/en/pairkan/";
+---
+<BaseLayout
+  title="pairkan.com — Takuya Ogata"
+  description="Solo full-stack web service case study."
+  lang="en"
+  pathname={PATHNAME}
+>
+  <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--s4)">
+    <span style="color: var(--comment); font-family: var(--font-mono); font-size: var(--fs-sm)">~/pairkan</span>
+    <LangSwitcher pathname={PATHNAME} />
+  </header>
+
+  <p style="font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--accent-2)">
+    <a href="/en/">[← back]</a>
+  </p>
+
+  <TerminalHero
+    command="./pairkan"
+    name="pairkan.com"
+    role="personal · 2025—"
+    tagline="A consumer-facing web service. Solo full-stack design and build."
+  />
+
+  <hr style="border:0; border-top:1px solid var(--rule); margin: var(--s8) 0" aria-hidden="true" />
+
+  <Section id="one-liner" title="one-liner">
+    <p style="font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7; color: var(--fg)">
+      A consumer-facing web service. Solo full-stack design and build, intentionally minimal for one-person economics.
+    </p>
+    {/* TODO(spec §6.2/§6.3): describe by technology and structure without naming the industry or user segment. */}
+  </Section>
+
+  <Section id="screenshots" title="screenshots">
+    <ScreenshotFigure src="/pairkan/01-hero.png"        alt="pairkan hero shot"    width={1200} height={750} caption="hero shot" />
+    <ScreenshotFigure src="/pairkan/02-onboarding.png"  alt="pairkan onboarding"   width={1200} height={750} caption="onboarding flow" />
+    <ScreenshotFigure src="/pairkan/03-main.png"        alt="pairkan main UI"      width={1200} height={750} caption="main UI" />
+    <ScreenshotFigure src="/pairkan/04-detail.png"      alt="pairkan detail view"  width={1200} height={750} caption="result / detail" />
+  </Section>
+
+  <Section id="problem-design-build" title="problem → design → build">
+    <div style="font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7; color: var(--fg)">
+      <p style="margin:0 0 var(--s4)">
+        <span style="color: var(--accent)">problem.</span><br />
+        Couples and families sharing a household accumulate constant low-grade friction — who fronted what, and when to settle up. Expenses with different closing dates (rent on the 25th, credit card on the 10th, cash month-end) break when squeezed into a single pool by spreadsheets or generic budgeting apps. I built it because my partner and I needed a settlement tool that <b>handles multiple closing cycles natively in one app</b>.
+      </p>
+      <p style="margin:0 0 var(--s4)">
+        <span style="color: var(--accent)">design.</span><br />
+        Modeled the domain around four first-class concepts — <b>Group / Bucket / Cycle / Invoice</b>. A Bucket carries the closing day and cycle length; each cycle finalizes into one Invoice with the <code>OPEN → PAID → CLOSED</code> state machine. After PAID, line items freeze (no edits except an explicit revert), so the issued bill doesn't shift under the receiver's feet. Recurring costs are semi-automated: templated items appear as candidates at close time, with only the variable portion entered by hand. Postgres Row Level Security pushes the "only the two members of this group can touch these rows" rule into the database layer, keeping the app layer thin.
+      </p>
+      <p style="margin:0">
+        <span style="color: var(--accent)">build.</span><br />
+        Deliberately minimal stack — Next.js 16 (App Router, RSC), Supabase (Postgres + Auth + RLS), shadcn/ui + Tailwind v4. Cloudflare Workers via <code>@opennextjs/cloudflare</code> for always-on edge execution on the free tier; Vercel kept as a DNS-flip backup. Tests split into Vitest fast / UI lanes plus Playwright (Chromium) E2E. Schema-first workflow with <code>supabase/schemas/</code> as the source of truth and <code>supabase db diff</code> generating migrations. Server Components by default, Client Components only at leaves, to keep hydration cost low — and the design → implement → deploy loop tractable for one person.
+      </p>
+    </div>
+  </Section>
+
+  <Section id="stack" title="stack & trade-offs">
+    <StackTable
+      rows={[
+        { axis: "frontend",   chosen: "Next.js 16 (App, React 19)", considered: "Astro · SvelteKit",        why: "SSR + auth + streaming in one runtime" },
+        { axis: "db / auth",  chosen: "Supabase (Postgres + Auth)", considered: "Postgres + Auth0",         why: "1 vendor cuts ops surface" },
+        { axis: "api",        chosen: "Next.js Route Handlers",     considered: "Hono on CF Workers",       why: "minimize context switching for solo dev" },
+        { axis: "hosting",    chosen: "Cloudflare Workers (opennextjs)", considered: "Vercel · Fly",        why: "edge + free tier (Vercel kept as DNS-flip backup)" },
+        { axis: "ui",         chosen: "shadcn/ui + Radix + Tailwind v4", considered: "Mantine · Chakra",    why: "copy-and-edit primitives, no runtime lock-in" },
+        { axis: "testing",    chosen: "Vitest + Playwright",        considered: "Jest + Cypress",           why: "Vite-native + cross-browser E2E" },
+        { axis: "analytics",  chosen: "(none yet)",                 considered: "Posthog · Plausible",      why: "ship first, measure later" },
+      ]}
+      note={"at scale, auth and heavy compute would split out to Hono on CF Workers.\nThe current minimalism is intentional — cost, speed, single-person cognitive load."}
+    />
+  </Section>
+
+  <Section id="next" title="current state · what's next">
+    <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7">
+      <li>- live: <a href="https://pairkan.com">pairkan.com</a></li>
+      <li>- recent ship: full landing-page refresh (Hero / Steps / Settle / Features / CTA sections), send-money UX polish, empty-state illustrations</li>
+      <li>- next: PWA push notification foundation; invoice UX flow upgrade; settings page; stricter expense edit-lock guarantees</li>
+    </ul>
+  </Section>
+
+  <Section id="links" title="links">
+    <pre style="margin:0; color: var(--comment); font-family: var(--font-mono); font-size: var(--fs-sm)">$ ls links/</pre>
+    <ul style="list-style:none; padding:0; margin: var(--s2) 0; font-family: var(--font-mono); font-size: var(--fs-sm)">
+      <li>demo  → <a href="https://pairkan.com" target="_blank" rel="noopener">https://pairkan.com</a></li>
+      <li>repo  → (private)</li>
+    </ul>
+  </Section>
+</BaseLayout>

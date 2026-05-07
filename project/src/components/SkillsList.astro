@@ -1,0 +1,22 @@
+---
+// project/src/components/SkillsList.astro
+export interface Group { category: string; items: string[]; }
+export interface Props { groups: Group[]; }
+const { groups } = Astro.props;
+---
+<dl class="sk">
+  {groups.map((g) => (
+    <div class="row">
+      <dt>{g.category}</dt>
+      <dd>{g.items.join(" · ")}</dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .sk { margin: 0; font-family: var(--font-mono); font-size: var(--fs-sm); }
+  .row { display: grid; grid-template-columns: 140px 1fr; gap: var(--s4); padding: 2px 0; align-items: baseline; }
+  dt { color: var(--accent-2); }
+  dd { color: var(--fg); margin: 0; }
+  @media (max-width: 540px) { .row { grid-template-columns: 1fr; } dt { font-size: var(--fs-xs); } }
+</style>

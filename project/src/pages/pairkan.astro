@@ -1,0 +1,100 @@
+---
+import { getEntry } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LangSwitcher from "@/components/LangSwitcher.astro";
+import TerminalHero from "@/components/TerminalHero.astro";
+import Section from "@/components/Section.astro";
+import ScreenshotFigure from "@/components/ScreenshotFigure.astro";
+import StackTable from "@/components/StackTable.astro";
+
+const entry = await getEntry("projects", "pairkan");
+if (!entry) throw new Error("pairkan content entry missing");
+
+const PATHNAME = "/pairkan/";
+---
+<BaseLayout
+  title="pairkan.com — Takuya Ogata"
+  description="Solo full-stack web service case study."
+  lang="ja"
+  pathname={PATHNAME}
+>
+  <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--s4)">
+    <span style="color: var(--comment); font-family: var(--font-mono); font-size: var(--fs-sm)">~/pairkan</span>
+    <LangSwitcher pathname={PATHNAME} />
+  </header>
+
+  <p style="font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--accent-2)">
+    <a href="/">[← back]</a>
+  </p>
+
+  <TerminalHero
+    command="./pairkan"
+    name="pairkan.com"
+    role="personal · 2025—"
+    tagline="A consumer-facing web service. Solo full-stack design and build."
+  />
+
+  <hr style="border:0; border-top:1px solid var(--rule); margin: var(--s8) 0" aria-hidden="true" />
+
+  <Section id="one-liner" title="one-liner">
+    <p style="font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7; color: var(--fg)">
+      A consumer-facing web service. Solo full-stack design and build, intentionally minimal for one-person economics.
+    </p>
+    {/* TODO(spec §6.2/§6.3): 業界・ユーザーセグメントを明示せず、技術と構造で記述する。 */}
+  </Section>
+
+  <Section id="screenshots" title="screenshots">
+    <ScreenshotFigure src="/pairkan/01-hero.png"        alt="pairkan hero shot"    width={1200} height={750} caption="hero shot" />
+    <ScreenshotFigure src="/pairkan/02-onboarding.png"  alt="pairkan onboarding"   width={1200} height={750} caption="onboarding flow" />
+    <ScreenshotFigure src="/pairkan/03-main.png"        alt="pairkan main UI"      width={1200} height={750} caption="main UI" />
+    <ScreenshotFigure src="/pairkan/04-detail.png"      alt="pairkan detail view"  width={1200} height={750} caption="result / detail" />
+  </Section>
+
+  <Section id="problem-design-build" title="problem → design → build">
+    <div style="font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7; color: var(--fg)">
+      <p style="margin:0 0 var(--s4)">
+        <span style="color: var(--accent)">problem.</span><br />
+        2 人で家計を共有していると「誰がいくら立て替えたか」「いつ精算するか」の小さな摩擦が日々積み上がる。家賃 (25 日締め) / クレカ (10 日締め) / 現金月末 など、締め日と引落タイミングが揃わない支出を 1 つのプールで精算しようとすると、Excel でも一般的な家計簿アプリでも破綻する。自分とパートナーの体験を改善するために、<b>複数の締め日を 1 つのアプリで並行運用できる</b>精算ツールが必要だと判断した。
+      </p>
+      <p style="margin:0 0 var(--s4)">
+        <span style="color: var(--accent)">design.</span><br />
+        ドメインを 4 つの一級概念に整理した — <b>Group / Bucket / Cycle / Invoice</b>。Bucket (お支払いまとめ) が締め日とサイクル長を持ち、サイクル毎に 1 つの Invoice を確定する。Invoice は <code>OPEN → PAID → CLOSED</code> の 3 状態で、PAID 以降は明細を凍結 (差し戻し以外で書き換え不可)、確定後の請求書が揺れないことを保証。固定費は半自動化 — テンプレート化された項目を締め時に候補表示し、変動分のみ確認入力する。Postgres の Row Level Security で「グループの 2 人だけが該当行に触れる」制約を DB レイヤに押し込み、アプリ層は薄く保った。
+      </p>
+      <p style="margin:0">
+        <span style="color: var(--accent)">build.</span><br />
+        スタックは意図的にミニマル — Next.js 16 (App Router, RSC) / Supabase (Postgres + Auth + RLS) / shadcn/ui + Tailwind v4。ホスティングは Cloudflare Workers (<code>@opennextjs/cloudflare</code>) で常時稼働の無料枠に乗せ、Vercel は DNS 切替で戻せる予備に残置。テストは Vitest を fast / UI レーンに分割、E2E は Playwright (Chromium)。スキーマは <code>supabase/schemas/</code> を Source of Truth とした schema-first ワークフロー (<code>supabase db diff</code> で migration 自動生成)。Server Components 優先・Client Components はリーフのみという方針で hydration コストを削り、設計→実装→デプロイのループを 1 人分の認知負荷で回せる粒度に保っている。
+      </p>
+    </div>
+  </Section>
+
+  <Section id="stack" title="stack & trade-offs">
+    <StackTable
+      rows={[
+        { axis: "frontend",   chosen: "Next.js 16 (App, React 19)", considered: "Astro · SvelteKit",        why: "SSR + auth + streaming をワンランタイムで" },
+        { axis: "db / auth",  chosen: "Supabase (Postgres + Auth)", considered: "Postgres + Auth0",         why: "1 ベンダーで運用負荷を圧縮" },
+        { axis: "api",        chosen: "Next.js Route Handlers",     considered: "Hono on CF Workers",       why: "solo dev のコンテキスト切替を最小化" },
+        { axis: "hosting",    chosen: "Cloudflare Workers (opennextjs)", considered: "Vercel · Fly",        why: "エッジ実行 + 無料枠 (Vercel は DNS 切替で戻せる backup)" },
+        { axis: "ui",         chosen: "shadcn/ui + Radix + Tailwind v4", considered: "Mantine · Chakra",    why: "コピペして編集できる軽量プリミティブ" },
+        { axis: "testing",    chosen: "Vitest + Playwright",        considered: "Jest + Cypress",           why: "Vite ネイティブ + クロスブラウザ E2E" },
+        { axis: "analytics",  chosen: "(none yet)",                 considered: "Posthog · Plausible",      why: "まず動かすことを優先" },
+      ]}
+      note={"スケールが伸びたら auth と heavy compute を Hono on CF Workers に分離する想定。\n現在のミニマリズムは意図的 — cost / 速度 / 1 人分の認知負荷を最優先。"}
+    />
+  </Section>
+
+  <Section id="next" title="current state · what's next">
+    <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7">
+      <li>- live: <a href="https://pairkan.com">pairkan.com</a></li>
+      <li>- recent ship: ランディング全面リファイン (Hero / Steps / Settle / Features / CTA セクション再構築)、送金フローの UX 整備とエンプティステート改善</li>
+      <li>- next: PWA Push 通知基盤、Invoice UX フロー強化、設定ページ、Expense 編集ロックの厳格化</li>
+    </ul>
+  </Section>
+
+  <Section id="links" title="links">
+    <pre style="margin:0; color: var(--comment); font-family: var(--font-mono); font-size: var(--fs-sm)">$ ls links/</pre>
+    <ul style="list-style:none; padding:0; margin: var(--s2) 0; font-family: var(--font-mono); font-size: var(--fs-sm)">
+      <li>demo  → <a href="https://pairkan.com" target="_blank" rel="noopener">https://pairkan.com</a></li>
+      <li>repo  → (private)</li>
+    </ul>
+  </Section>
+</BaseLayout>

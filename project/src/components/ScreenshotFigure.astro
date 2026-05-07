@@ -1,0 +1,56 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+
+export interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  width: number;
+  height: number;
+}
+const { src, alt, caption, width, height } = Astro.props;
+
+const publicPath = path.resolve("public", src.replace(/^\//, ""));
+const exists = fs.existsSync(publicPath);
+const webp = src.replace(/\.png$|\.jpg$|\.jpeg$/i, ".webp");
+const aspect = `${width} / ${height}`;
+---
+<figure class="ss">
+  {exists ? (
+    <picture>
+      <source srcset={webp} type="image/webp" />
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" />
+    </picture>
+  ) : (
+    <div class="placeholder" role="img" aria-label={alt} style={`aspect-ratio: ${aspect}`}>
+      <span class="ph-tag">[ screenshot · pending ]</span>
+      <span class="ph-meta">{src}</span>
+    </div>
+  )}
+  {caption && <figcaption>// {caption}</figcaption>}
+</figure>
+
+<style>
+  .ss { margin: var(--s4) 0; }
+  .ss img {
+    display: block; max-width: 100%; height: auto;
+    border: 1px solid var(--border); background: var(--bg-soft);
+  }
+  .placeholder {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--s2);
+    width: 100%;
+    border: 1px dashed var(--border);
+    background:
+      repeating-linear-gradient(135deg, var(--bg-soft) 0 8px, var(--bg) 8px 16px);
+    color: var(--comment);
+    font-family: var(--font-mono);
+  }
+  .ph-tag { font-size: var(--fs-sm); color: var(--accent); letter-spacing: 0.04em; }
+  .ph-meta { font-size: var(--fs-xs); color: var(--fg-mute); }
+  figcaption {
+    color: var(--comment); font-family: var(--font-mono);
+    font-size: var(--fs-xs); margin-top: var(--s1);
+  }
+</style>

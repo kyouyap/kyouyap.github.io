@@ -1,0 +1,88 @@
+---
+import type { GitHubStats } from "@/lib/github";
+
+export interface Props {
+  username: string;
+  stats: GitHubStats | null;
+  errorMessage?: string;
+}
+const { username, stats, errorMessage } = Astro.props;
+---
+<div class="ghp">
+  <pre class="cmd">$ gh api users/{username} | jq</pre>
+
+  {stats ? (
+    <div class="layout">
+      <dl class="stats">
+        <div class="row"><dt>public_repos</dt><dd>{stats.publicRepos.toLocaleString()}</dd></div>
+        <div class="row"><dt>total_stars</dt><dd>{stats.totalStars.toLocaleString()}</dd></div>
+        <div class="row"><dt>followers</dt><dd>{stats.followers.toLocaleString()}</dd></div>
+        <div class="row"><dt>fetched_at</dt><dd class="muted">{stats.fetchedAt}</dd></div>
+      </dl>
+
+      <div class="langs">
+        <pre class="cmd">$ gh api repos | aggregate-languages</pre>
+        <ul>
+          {stats.topLangs.map((l) => (
+            <li>
+              <span class="lang-name">{l.name}</span>
+              <span class="bar" aria-hidden="true">
+                <span class="fill" style={`width: ${Math.max(l.pct, 0.5)}%`}></span>
+              </span>
+              <span class="lang-pct">{l.pct.toFixed(1)}%</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  ) : (
+    <p class="err">// stats unavailable {errorMessage ? `(${errorMessage})` : ""}</p>
+  )}
+</div>
+
+<style>
+  .ghp { font-family: var(--font-mono); font-size: var(--fs-sm); }
+  .cmd { color: var(--comment); margin: 0 0 var(--s2); white-space: pre-wrap; }
+  .err { color: var(--comment); margin: var(--s2) 0; }
+
+  .layout {
+    display: grid; grid-template-columns: minmax(220px, 280px) 1fr;
+    gap: var(--s8);
+    align-items: start;
+  }
+  @media (max-width: 600px) {
+    .layout { grid-template-columns: 1fr; gap: var(--s4); }
+  }
+
+  .stats { margin: 0; }
+  .row {
+    display: grid; grid-template-columns: 130px 1fr; gap: var(--s2);
+    padding: 2px 0; align-items: baseline;
+  }
+  dt { color: var(--accent-2); }
+  dd { color: var(--accent); margin: 0; font-weight: 700; }
+  dd.muted { color: var(--fg-mute); font-weight: 400; }
+
+  .langs ul { list-style: none; padding: 0; margin: var(--s2) 0 0; }
+  .langs li {
+    display: grid;
+    grid-template-columns: 110px 1fr 64px;
+    gap: var(--s2);
+    align-items: center;
+    padding: 3px 0;
+  }
+  .lang-name { color: var(--fg); }
+  .lang-pct  { color: var(--fg-mute); text-align: right; font-size: var(--fs-xs); }
+  .bar {
+    display: block;
+    height: 6px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .fill {
+    display: block; height: 100%;
+    background: var(--accent);
+  }
+</style>

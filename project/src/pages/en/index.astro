@@ -1,0 +1,117 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LangSwitcher from "@/components/LangSwitcher.astro";
+import TerminalHero from "@/components/TerminalHero.astro";
+import Section from "@/components/Section.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import ArchiveList from "@/components/ArchiveList.astro";
+import CareerTimeline from "@/components/CareerTimeline.astro";
+import SkillsList from "@/components/SkillsList.astro";
+import Email from "@/components/Email.astro";
+import GitHubPanel from "@/components/GitHubPanel.astro";
+import { fetchGitHubStats, type GitHubStats } from "@/lib/github";
+import { en as t } from "@/i18n/en";
+
+const all = await getCollection("projects");
+const selected = all.filter((p) => p.data.selected).sort((a, b) => b.data.sortKey.localeCompare(a.data.sortKey));
+const archive  = all.filter((p) => !p.data.selected).sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+
+const PATHNAME = "/en/";
+const GH = "kyouyap";
+
+let ghStats: GitHubStats | null = null;
+let ghError: string | undefined;
+try {
+  ghStats = await fetchGitHubStats(GH);
+} catch (e) {
+  ghError = e instanceof Error ? e.message : String(e);
+  console.warn("[github] stats fetch failed:", ghError);
+}
+---
+<BaseLayout title={t.meta.title} description={t.meta.description} lang="en" pathname={PATHNAME}>
+  <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--s4)">
+    <span style="color: var(--comment); font-family: var(--font-mono); font-size: var(--fs-sm)">~/</span>
+    <LangSwitcher pathname={PATHNAME} />
+  </header>
+
+  <TerminalHero name={t.hero.name} role={t.hero.role} tagline={t.hero.tagline} />
+
+  <hr style="border:0; border-top:1px solid var(--rule); margin: var(--s8) 0" aria-hidden="true" />
+
+  <Section id="about" title={t.about.title}>
+    {t.about.body.map((line) => (
+      <p style="margin: 4px 0; color: var(--fg); font-size: var(--fs-sm); line-height: 1.7">{line}</p>
+    ))}
+  </Section>
+
+  <Section id="now" title={t.now.title}>
+    <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--fs-sm)">
+      {t.now.items.map((line) => <li style="padding: 2px 0">- {line}</li>)}
+    </ul>
+  </Section>
+
+  <Section id="experience" title={t.experience.title}>
+    <CareerTimeline rows={[
+      { kind: "job", period: "2021.06 — present", org: "Accenture Japan Ltd." },
+      { kind: "promotion", date: "2023.12", title: "Promoted to Data Science Consultant" },
+      { kind: "rule" },
+      { kind: "edu", period: "2019 — 2021", degree: "M.S. Computer Science", org: "Kyushu University" },
+      { kind: "edu", period: "2015 — 2019", degree: "B.Eng. EECS", org: "Kyushu University" },
+      { kind: "rule" },
+      { kind: "cert", period: "2024", name: "AWS Certified Solutions Architect — Associate" },
+    ]} />
+  </Section>
+
+  <Section id="selected_work" title={t.selected.title}>
+    {selected.map((p, i) => (
+      <ProjectCard
+        index={String(i + 1).padStart(2, "00")}
+        slug={p.data.title}
+        type={p.data.type}
+        period={p.data.period}
+        role={p.data.role}
+        title={p.data.title}
+        description={p.data.description_en}
+        tags={p.data.tags}
+        href={p.data.href ? `/en${p.data.href}` : undefined}
+      />
+    ))}
+  </Section>
+
+  <Section id="archive" title={t.archive.title}>
+    <ArchiveList
+      summaryText={t.archive.summary}
+      items={archive.map((p) => ({
+        slug: p.data.title, type: p.data.type, period: p.data.period, role: p.data.role,
+        blurb: p.data.blurb_en,
+      }))}
+    />
+  </Section>
+
+  <Section id="github" title={t.github.title}>
+    <GitHubPanel username={GH} stats={ghStats} errorMessage={ghError} />
+  </Section>
+
+  <Section id="skills" title={t.skills.title}>
+    <SkillsList groups={[
+      { category: "languages", items: ["Python", "TypeScript", "SQL", "Shell"] },
+      { category: "genai",     items: ["LangChain", "LangGraph", "RAG", "OpenAI / Anthropic API", "Realtime API", "multi-agent"] },
+      { category: "ml",        items: ["PyTorch", "BERT", "Whisper", "scikit-learn", "LightGBM", "pandas"] },
+      { category: "backend",   items: ["FastAPI", "Flask", "Hono", "Django", "Quart"] },
+      { category: "frontend",  items: ["React", "Next.js", "Astro", "Vue", "Tailwind"] },
+      { category: "data",      items: ["PySpark", "Databricks", "AWS Neptune", "networkx", "luigi"] },
+      { category: "infra",     items: ["AWS", "Azure AI Foundry", "Supabase", "Docker", "PostgreSQL", "Step Functions", "SageMaker", "Jenkins"] },
+      { category: "tools",     items: ["Vim", "VSCode", "Jupyter", "Claude Code"] },
+    ]} />
+  </Section>
+
+  <Section id="contact" title={t.contact.title}>
+    <pre style="margin:0; color: var(--comment); font-family: var(--font-mono); font-size: var(--fs-sm)">{t.contact.cmd}</pre>
+    <ul style="list-style:none; padding:0; margin: var(--s2) 0; font-family: var(--font-mono); font-size: var(--fs-sm)">
+      <li>{t.contact.githubLabel}   → <a href="https://github.com/kyouyap">@kyouyap</a></li>
+      <li>{t.contact.twitterLabel}  → <a href="https://twitter.com/kyouyap">@kyouyap</a></li>
+      <li>{t.contact.emailLabel}    → <Email /></li>
+    </ul>
+  </Section>
+</BaseLayout>

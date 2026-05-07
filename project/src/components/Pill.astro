@@ -1,0 +1,21 @@
+---
+// project/src/components/Pill.astro
+export interface Props { label: string; }
+const { label } = Astro.props;
+---
+<span class="pill">{label}</span>
+
+<style>
+  .pill {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    padding: 1px 7px;
+    border: 1px solid #2e3a1f;
+    background: #1d2017;
+    color: var(--good);
+    border-radius: 2px;
+    margin-right: 4px;
+    line-height: 1.6;
+  }
+</style>

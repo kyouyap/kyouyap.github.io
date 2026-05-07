@@ -1,0 +1,46 @@
+---
+// project/src/components/ArchiveList.astro
+export interface ArchiveItem {
+  slug: string;
+  type: "work" | "personal";
+  period: string;
+  role?: string;
+  blurb: string;
+}
+export interface Props {
+  items: ArchiveItem[];
+  summaryText: string; // "click to expand · 9 items" etc.
+}
+const { items, summaryText } = Astro.props;
+---
+<details class="archive">
+  <summary>{summaryText}</summary>
+  <ul>
+    {items.map((it) => (
+      <li>
+        <span class="dot">·</span>
+        <span class="slug">{it.slug}</span>
+        {it.role && <span class="role">{it.role}</span>}
+        <span class="meta">{it.type} · {it.period}</span>
+        <span class="blurb">{it.blurb}</span>
+      </li>
+    ))}
+  </ul>
+</details>
+
+<style>
+  .archive summary {
+    cursor: pointer; color: var(--comment);
+    font-family: var(--font-mono); font-size: var(--fs-sm);
+    list-style: none; padding: var(--s2) 0;
+  }
+  .archive summary::-webkit-details-marker { display: none; }
+  .archive summary::before { content: "[+] "; color: var(--comment); }
+  .archive[open] summary::before { content: "[−] "; }
+  ul { list-style: none; padding: 0; margin: 0; font-family: var(--font-mono); font-size: var(--fs-sm); }
+  li { display: flex; flex-wrap: wrap; gap: var(--s2); padding: 4px 0; align-items: baseline; }
+  .dot, .meta { color: var(--comment); }
+  .slug { color: var(--fg); }
+  .role { color: var(--good); font-size: var(--fs-xs); border: 1px solid #2e3a1f; padding: 0 5px; }
+  .blurb { color: var(--fg-mute); font-size: var(--fs-xs); margin-left: auto; max-width: 50%; text-align: right; }
+</style>

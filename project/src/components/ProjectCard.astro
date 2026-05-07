@@ -1,0 +1,55 @@
+---
+// project/src/components/ProjectCard.astro
+import Pill from "@/components/Pill.astro";
+
+export interface Props {
+  index: string;     // "01"
+  slug: string;      // "pairkan"
+  type: "personal" | "work";
+  period: string;    // "2025—" or "2025.02 — 2025.04"
+  role?: string;     // e.g. "lead"
+  title: string;     // human heading; same as slug for terminal aesthetic
+  description: string[]; // each entry rendered as a separate line
+  tags: string[];
+  href?: string;     // e.g. "/pairkan/"
+}
+const { index, slug, type, period, role, description, tags, href } = Astro.props;
+---
+<article class="card">
+  <div class="row">
+    <span class="bracket">[</span><span class="idx">{index}</span><span class="bracket">]</span>
+    <span class="slug">{slug}</span>
+    {role && <span class="role">{role}</span>}
+    <span class="meta">{type} · {period}</span>
+    {href && <a class="link" href={href}>→ {href}</a>}
+  </div>
+  <ul class="desc">
+    {description.map((line) => <li>{line}</li>)}
+  </ul>
+  <div class="tags">
+    {tags.map((t) => <Pill label={t} />)}
+  </div>
+</article>
+
+<style>
+  .card { padding: var(--s2) 0; border-top: 1px dashed var(--border); }
+  .card:first-of-type { border-top: 0; }
+  .row {
+    display: flex; flex-wrap: wrap; gap: var(--s2); align-items: baseline;
+    font-family: var(--font-mono); font-size: var(--fs-sm);
+  }
+  .bracket, .idx { color: var(--comment); }
+  .slug { color: var(--accent); font-weight: 700; font-size: var(--fs-md); }
+  .role {
+    color: var(--good); font-size: var(--fs-xs);
+    border: 1px solid #2e3a1f; padding: 0 6px;
+  }
+  .meta { color: var(--comment); margin-left: auto; font-size: var(--fs-xs); }
+  .link { font-size: var(--fs-xs); color: var(--accent-2); }
+  .desc {
+    list-style: none; padding: 0; margin: var(--s2) 0;
+    color: var(--fg); font-size: var(--fs-sm); line-height: 1.55;
+  }
+  .desc li { padding-left: 0; }
+  .tags { margin-top: var(--s1); }
+</style>

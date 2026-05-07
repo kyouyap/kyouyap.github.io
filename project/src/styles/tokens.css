@@ -1,0 +1,44 @@
+/* project/src/styles/tokens.css */
+:root {
+  color-scheme: dark;
+
+  /* color */
+  --bg:        #0d0e0c;
+  --bg-soft:   #131410;
+  --border:    #2c2d29;
+  --rule:      #4d4d47;
+  --fg:        #d6d6d0;
+  --fg-mute:   #8a8a82;
+  --accent:    #d2b471;
+  --accent-2:  #6b94a8;
+  --comment:   #6b7a55;
+  --good:      #b3c187;
+
+  /* type */
+  --font-mono:
+    "JetBrains Mono", "Berkeley Mono", ui-monospace, "SF Mono", Menlo,
+    "Noto Sans Mono CJK JP", "Hiragino Sans", monospace;
+  --fs-xs: 11px;
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 24px;
+  --fs-2xl: 32px;
+  --fs-3xl: 48px;
+  --lh-tight: 1.15;
+  --lh-body: 1.6;
+
+  /* spacing (8px grid) */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s6: 24px;
+  --s8: 32px;
+  --s12: 48px;
+  --s16: 64px;
+
+  /* layout */
+  --content-w: 720px;
+  --gallery-w: 1080px;
+}
