@@ -1,0 +1,56 @@
+---
+// project/src/components/CareerTimeline.astro
+export type TimelineRow =
+  | { kind: "job"; period: string; org: string; note?: string }
+  | { kind: "promotion"; date: string; title: string }
+  | { kind: "edu"; period: string; degree: string; org: string }
+  | { kind: "cert"; period: string; name: string }
+  | { kind: "rule" };
+export interface Props { rows: TimelineRow[]; }
+const { rows } = Astro.props;
+---
+<ul class="tl">
+  {rows.map((r) => {
+    if (r.kind === "rule") return <li class="rule">─</li>;
+    if (r.kind === "job") return (
+      <li class="row">
+        <span class="period">{r.period}</span>
+        <span class="org">{r.org}</span>
+        {r.note && <span class="note">{r.note}</span>}
+      </li>
+    );
+    if (r.kind === "promotion") return (
+      <li class="row indent">
+        <span class="period">└── {r.date}</span>
+        <span class="org">{r.title}</span>
+      </li>
+    );
+    if (r.kind === "edu") return (
+      <li class="row">
+        <span class="period">{r.period}</span>
+        <span class="org">{r.degree}</span>
+        <span class="note">{r.org}</span>
+      </li>
+    );
+    return ( /* cert */
+      <li class="row">
+        <span class="period">{r.period}</span>
+        <span class="org">{r.name}</span>
+      </li>
+    );
+  })}
+</ul>
+
+<style>
+  .tl { list-style: none; padding: 0; margin: 0; font-family: var(--font-mono); font-size: var(--fs-sm); }
+  .row { display: grid; grid-template-columns: 220px 1fr auto; gap: var(--s4); align-items: baseline; padding: 2px 0; }
+  .row.indent .period { color: var(--comment); }
+  .period { color: var(--accent-2); }
+  .org { color: var(--fg); }
+  .note { color: var(--comment); }
+  .rule { color: var(--rule); padding: 4px 0; }
+  @media (max-width: 540px) {
+    .row { grid-template-columns: 1fr; }
+    .note { font-size: var(--fs-xs); }
+  }
+</style>
