@@ -9,6 +9,8 @@ import ArchiveList from "@/components/ArchiveList.astro";
 import CareerTimeline from "@/components/CareerTimeline.astro";
 import SkillsList from "@/components/SkillsList.astro";
 import Email from "@/components/Email.astro";
+import GitHubPanel from "@/components/GitHubPanel.astro";
+import { fetchGitHubStats, type GitHubStats } from "@/lib/github";
 import { ja as t } from "@/i18n/ja";
 
 const all = await getCollection("projects");
@@ -21,29 +23,15 @@ const archive = all
 
 const PATHNAME = "/";
 const GH = "kyouyap";
-const ghStats = (path: string) => {
-  const base = `https://github-readme-stats.vercel.app/api${path}`;
-  const params =
-    "username=" + GH +
-    "&hide_border=true" +
-    "&bg_color=0d0e0c" +
-    "&title_color=d2b471" +
-    "&text_color=d6d6d0" +
-    "&icon_color=6b94a8";
-  return `${base}${path.includes("?") ? "&" : "?"}${params}`;
-};
-const ghStreak =
-  `https://github-readme-streak-stats.herokuapp.com/?user=${GH}` +
-  "&hide_border=true" +
-  "&background=0d0e0c" +
-  "&stroke=2c2d29" +
-  "&ring=d2b471" +
-  "&fire=d2b471" +
-  "&currStreakNum=d2b471" +
-  "&currStreakLabel=8a8a82" +
-  "&sideNums=d6d6d0" +
-  "&sideLabels=8a8a82" +
-  "&dates=8a8a82";
+
+let ghStats: GitHubStats | null = null;
+let ghError: string | undefined;
+try {
+  ghStats = await fetchGitHubStats(GH);
+} catch (e) {
+  ghError = e instanceof Error ? e.message : String(e);
+  console.warn("[github] stats fetch failed:", ghError);
+}
 ---
 <BaseLayout title={t.meta.title} description={t.meta.description} lang="ja" pathname={PATHNAME}>
   <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom: var(--s4)">
@@ -115,11 +103,7 @@ const ghStreak =
   </Section>
 
   <Section id="github" title={t.github.title}>
-    <div style="display:flex; flex-wrap:wrap; gap: var(--s2)">
-      <img src={ghStats("")} alt="GitHub stats" loading="lazy" style="max-width:100%" />
-      <img src={ghStats("/top-langs/?layout=compact")} alt="Top languages" loading="lazy" style="max-width:100%" />
-      <img src={ghStreak} alt="GitHub streak" loading="lazy" style="max-width:100%" />
-    </div>
+    <GitHubPanel username={GH} stats={ghStats} errorMessage={ghError} />
   </Section>
 
   <Section id="skills" title={t.skills.title}>
