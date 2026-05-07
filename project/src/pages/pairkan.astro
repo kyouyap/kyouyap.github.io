@@ -9,7 +9,6 @@ import StackTable from "@/components/StackTable.astro";
 
 const entry = await getEntry("projects", "pairkan");
 if (!entry) throw new Error("pairkan content entry missing");
-const { Content } = await entry.render();
 
 const PATHNAME = "/pairkan/";
 ---
@@ -37,6 +36,13 @@ const PATHNAME = "/pairkan/";
 
   <hr style="border:0; border-top:1px solid var(--rule); margin: var(--s8) 0" aria-hidden="true" />
 
+  <Section id="one-liner" title="one-liner">
+    <p style="font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7; color: var(--fg)">
+      A consumer-facing web service. Solo full-stack design and build, intentionally minimal for one-person economics.
+    </p>
+    {/* TODO(spec §6.2/§6.3): 業界・ユーザーセグメントを明示せず、技術と構造で記述する。 */}
+  </Section>
+
   <Section id="screenshots" title="screenshots">
     <ScreenshotFigure src="/pairkan/01-hero.png"        alt="pairkan hero shot"    width={1200} height={750} caption="hero shot" />
     <ScreenshotFigure src="/pairkan/02-onboarding.png"  alt="pairkan onboarding"   width={1200} height={750} caption="onboarding flow" />
@@ -44,8 +50,12 @@ const PATHNAME = "/pairkan/";
     <ScreenshotFigure src="/pairkan/04-detail.png"      alt="pairkan detail view"  width={1200} height={750} caption="result / detail" />
   </Section>
 
-  <Section id="story" title="problem → design → build">
-    <Content />
+  <Section id="problem-design-build" title="problem → design → build">
+    <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7">
+      <li>- <b>problem.</b> _to be written._</li>
+      <li>- <b>design.</b> _to be written._</li>
+      <li>- <b>build.</b> _to be written._</li>
+    </ul>
   </Section>
 
   <Section id="stack" title="stack & trade-offs">
@@ -59,6 +69,14 @@ const PATHNAME = "/pairkan/";
       ]}
       note={"at scale, auth and heavy compute would split out to Hono.\nThe current minimalism is intentional — cost, speed, single-person cognitive load."}
     />
+  </Section>
+
+  <Section id="next" title="current state · what's next">
+    <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7">
+      <li>- live: <a href="https://pairkan.com">pairkan.com</a></li>
+      <li>- recent ship: _to be written._</li>
+      <li>- next:        _to be written._</li>
+    </ul>
   </Section>
 
   <Section id="links" title="links">
