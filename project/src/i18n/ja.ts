@@ -25,7 +25,7 @@ export const ja = {
     title: "now",
     items: [
       "Data Science Consultant @ Accenture Japan",
-      "Building   pairkan.com  (Next.js + Supabase, solo)",
+      "Building   pairkan.com  (Next.js 16 + Supabase + Cloudflare Workers, solo)",
       "Working on multi-agent LLM workflow with the strategy team (LangGraph · Next.js · FastAPI · Azure AI Foundry)",
     ],
   },

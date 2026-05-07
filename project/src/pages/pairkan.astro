@@ -61,13 +61,15 @@ const PATHNAME = "/pairkan/";
   <Section id="stack" title="stack & trade-offs">
     <StackTable
       rows={[
-        { axis: "frontend",   chosen: "Next.js (App)",        considered: "Astro · SvelteKit",       why: "SSR + auth in one runtime" },
-        { axis: "db / auth",  chosen: "Supabase",             considered: "Postgres + Auth0",        why: "1 vendor reduces ops surface" },
-        { axis: "api",        chosen: "Next.js Route Hndl",   considered: "Hono on Cloudflare",      why: "minimize context switching for solo dev" },
-        { axis: "hosting",    chosen: "Vercel",               considered: "CF Pages · Fly",          why: "free tier + DX" },
-        { axis: "analytics",  chosen: "(none yet)",           considered: "Posthog · Plausible",     why: "prioritize shipping first" },
+        { axis: "frontend",   chosen: "Next.js 16 (App, React 19)", considered: "Astro · SvelteKit",        why: "SSR + auth + streaming をワンランタイムで" },
+        { axis: "db / auth",  chosen: "Supabase (Postgres + Auth)", considered: "Postgres + Auth0",         why: "1 ベンダーで運用負荷を圧縮" },
+        { axis: "api",        chosen: "Next.js Route Handlers",     considered: "Hono on CF Workers",       why: "solo dev のコンテキスト切替を最小化" },
+        { axis: "hosting",    chosen: "Cloudflare Workers (opennextjs)", considered: "Vercel · Fly",        why: "エッジ実行 + 無料枠 (Vercel は DNS 切替で戻せる backup)" },
+        { axis: "ui",         chosen: "shadcn/ui + Radix + Tailwind v4", considered: "Mantine · Chakra",    why: "コピペして編集できる軽量プリミティブ" },
+        { axis: "testing",    chosen: "Vitest + Playwright",        considered: "Jest + Cypress",           why: "Vite ネイティブ + クロスブラウザ E2E" },
+        { axis: "analytics",  chosen: "(none yet)",                 considered: "Posthog · Plausible",      why: "まず動かすことを優先" },
       ]}
-      note={"at scale, auth and heavy compute would split out to Hono.\nThe current minimalism is intentional — cost, speed, single-person cognitive load."}
+      note={"スケールが伸びたら auth と heavy compute を Hono on CF Workers に分離する想定。\n現在のミニマリズムは意図的 — cost / 速度 / 1 人分の認知負荷を最優先。"}
     />
   </Section>
 

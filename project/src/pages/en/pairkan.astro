@@ -61,13 +61,15 @@ const PATHNAME = "/en/pairkan/";
   <Section id="stack" title="stack & trade-offs">
     <StackTable
       rows={[
-        { axis: "frontend",   chosen: "Next.js (App)",        considered: "Astro · SvelteKit",       why: "SSR + auth in one runtime" },
-        { axis: "db / auth",  chosen: "Supabase",             considered: "Postgres + Auth0",        why: "1 vendor reduces ops surface" },
-        { axis: "api",        chosen: "Next.js Route Hndl",   considered: "Hono on Cloudflare",      why: "minimize context switching for solo dev" },
-        { axis: "hosting",    chosen: "Vercel",               considered: "CF Pages · Fly",          why: "free tier + DX" },
-        { axis: "analytics",  chosen: "(none yet)",           considered: "Posthog · Plausible",     why: "prioritize shipping first" },
+        { axis: "frontend",   chosen: "Next.js 16 (App, React 19)", considered: "Astro · SvelteKit",        why: "SSR + auth + streaming in one runtime" },
+        { axis: "db / auth",  chosen: "Supabase (Postgres + Auth)", considered: "Postgres + Auth0",         why: "1 vendor cuts ops surface" },
+        { axis: "api",        chosen: "Next.js Route Handlers",     considered: "Hono on CF Workers",       why: "minimize context switching for solo dev" },
+        { axis: "hosting",    chosen: "Cloudflare Workers (opennextjs)", considered: "Vercel · Fly",        why: "edge + free tier (Vercel kept as DNS-flip backup)" },
+        { axis: "ui",         chosen: "shadcn/ui + Radix + Tailwind v4", considered: "Mantine · Chakra",    why: "copy-and-edit primitives, no runtime lock-in" },
+        { axis: "testing",    chosen: "Vitest + Playwright",        considered: "Jest + Cypress",           why: "Vite-native + cross-browser E2E" },
+        { axis: "analytics",  chosen: "(none yet)",                 considered: "Posthog · Plausible",      why: "ship first, measure later" },
       ]}
-      note={"at scale, auth and heavy compute would split out to Hono.\nThe current minimalism is intentional — cost, speed, single-person cognitive load."}
+      note={"at scale, auth and heavy compute would split out to Hono on CF Workers.\nThe current minimalism is intentional — cost, speed, single-person cognitive load."}
     />
   </Section>
 

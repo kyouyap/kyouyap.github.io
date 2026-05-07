@@ -25,8 +25,7 @@ const ghStats = (path: string) => {
     "&bg_color=0d0e0c" +
     "&title_color=d2b471" +
     "&text_color=d6d6d0" +
-    "&icon_color=6b94a8" +
-    "&theme=ayu-mirage";
+    "&icon_color=6b94a8";
   return `${base}${path.includes("?") ? "&" : "?"}${params}`;
 };
 const ghStreak =
@@ -36,7 +35,9 @@ const ghStreak =
   "&stroke=2c2d29" +
   "&ring=d2b471" +
   "&fire=d2b471" +
-  "&currStreakLabel=d6d6d0" +
+  "&currStreakNum=d2b471" +
+  "&currStreakLabel=8a8a82" +
+  "&sideNums=d6d6d0" +
   "&sideLabels=8a8a82" +
   "&dates=8a8a82";
 ---
