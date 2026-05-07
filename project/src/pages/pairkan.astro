@@ -51,11 +51,20 @@ const PATHNAME = "/pairkan/";
   </Section>
 
   <Section id="problem-design-build" title="problem → design → build">
-    <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7">
-      <li>- <b>problem.</b> _to be written._</li>
-      <li>- <b>design.</b> _to be written._</li>
-      <li>- <b>build.</b> _to be written._</li>
-    </ul>
+    <div style="font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7; color: var(--fg)">
+      <p style="margin:0 0 var(--s4)">
+        <span style="color: var(--accent)">problem.</span><br />
+        2 人で家計を共有していると「誰がいくら立て替えたか」「いつ精算するか」の小さな摩擦が日々積み上がる。家賃 (25 日締め) / クレカ (10 日締め) / 現金月末 など、締め日と引落タイミングが揃わない支出を 1 つのプールで精算しようとすると、Excel でも一般的な家計簿アプリでも破綻する。自分とパートナーの体験を改善するために、<b>複数の締め日を 1 つのアプリで並行運用できる</b>精算ツールが必要だと判断した。
+      </p>
+      <p style="margin:0 0 var(--s4)">
+        <span style="color: var(--accent)">design.</span><br />
+        ドメインを 4 つの一級概念に整理した — <b>Group / Bucket / Cycle / Invoice</b>。Bucket (お支払いまとめ) が締め日とサイクル長を持ち、サイクル毎に 1 つの Invoice を確定する。Invoice は <code>OPEN → PAID → CLOSED</code> の 3 状態で、PAID 以降は明細を凍結 (差し戻し以外で書き換え不可)、確定後の請求書が揺れないことを保証。固定費は半自動化 — テンプレート化された項目を締め時に候補表示し、変動分のみ確認入力する。Postgres の Row Level Security で「グループの 2 人だけが該当行に触れる」制約を DB レイヤに押し込み、アプリ層は薄く保った。
+      </p>
+      <p style="margin:0">
+        <span style="color: var(--accent)">build.</span><br />
+        スタックは意図的にミニマル — Next.js 16 (App Router, RSC) / Supabase (Postgres + Auth + RLS) / shadcn/ui + Tailwind v4。ホスティングは Cloudflare Workers (<code>@opennextjs/cloudflare</code>) で常時稼働の無料枠に乗せ、Vercel は DNS 切替で戻せる予備に残置。テストは Vitest を fast / UI レーンに分割、E2E は Playwright (Chromium)。スキーマは <code>supabase/schemas/</code> を Source of Truth とした schema-first ワークフロー (<code>supabase db diff</code> で migration 自動生成)。Server Components 優先・Client Components はリーフのみという方針で hydration コストを削り、設計→実装→デプロイのループを 1 人分の認知負荷で回せる粒度に保っている。
+      </p>
+    </div>
   </Section>
 
   <Section id="stack" title="stack & trade-offs">
@@ -76,8 +85,8 @@ const PATHNAME = "/pairkan/";
   <Section id="next" title="current state · what's next">
     <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7">
       <li>- live: <a href="https://pairkan.com">pairkan.com</a></li>
-      <li>- recent ship: _to be written._</li>
-      <li>- next:        _to be written._</li>
+      <li>- recent ship: ランディング全面リファイン (Hero / Steps / Settle / Features / CTA セクション再構築)、送金フローの UX 整備とエンプティステート改善</li>
+      <li>- next: PWA Push 通知基盤、Invoice UX フロー強化、設定ページ、Expense 編集ロックの厳格化</li>
     </ul>
   </Section>
 

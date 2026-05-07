@@ -51,11 +51,20 @@ const PATHNAME = "/en/pairkan/";
   </Section>
 
   <Section id="problem-design-build" title="problem → design → build">
-    <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7">
-      <li>- <b>problem.</b> _to be written._</li>
-      <li>- <b>design.</b> _to be written._</li>
-      <li>- <b>build.</b> _to be written._</li>
-    </ul>
+    <div style="font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7; color: var(--fg)">
+      <p style="margin:0 0 var(--s4)">
+        <span style="color: var(--accent)">problem.</span><br />
+        Couples and families sharing a household accumulate constant low-grade friction — who fronted what, and when to settle up. Expenses with different closing dates (rent on the 25th, credit card on the 10th, cash month-end) break when squeezed into a single pool by spreadsheets or generic budgeting apps. I built it because my partner and I needed a settlement tool that <b>handles multiple closing cycles natively in one app</b>.
+      </p>
+      <p style="margin:0 0 var(--s4)">
+        <span style="color: var(--accent)">design.</span><br />
+        Modeled the domain around four first-class concepts — <b>Group / Bucket / Cycle / Invoice</b>. A Bucket carries the closing day and cycle length; each cycle finalizes into one Invoice with the <code>OPEN → PAID → CLOSED</code> state machine. After PAID, line items freeze (no edits except an explicit revert), so the issued bill doesn't shift under the receiver's feet. Recurring costs are semi-automated: templated items appear as candidates at close time, with only the variable portion entered by hand. Postgres Row Level Security pushes the "only the two members of this group can touch these rows" rule into the database layer, keeping the app layer thin.
+      </p>
+      <p style="margin:0">
+        <span style="color: var(--accent)">build.</span><br />
+        Deliberately minimal stack — Next.js 16 (App Router, RSC), Supabase (Postgres + Auth + RLS), shadcn/ui + Tailwind v4. Cloudflare Workers via <code>@opennextjs/cloudflare</code> for always-on edge execution on the free tier; Vercel kept as a DNS-flip backup. Tests split into Vitest fast / UI lanes plus Playwright (Chromium) E2E. Schema-first workflow with <code>supabase/schemas/</code> as the source of truth and <code>supabase db diff</code> generating migrations. Server Components by default, Client Components only at leaves, to keep hydration cost low — and the design → implement → deploy loop tractable for one person.
+      </p>
+    </div>
   </Section>
 
   <Section id="stack" title="stack & trade-offs">
@@ -76,8 +85,8 @@ const PATHNAME = "/en/pairkan/";
   <Section id="next" title="current state · what's next">
     <ul style="list-style:none; padding:0; margin:0; font-family: var(--font-mono); font-size: var(--fs-sm); line-height: 1.7">
       <li>- live: <a href="https://pairkan.com">pairkan.com</a></li>
-      <li>- recent ship: _to be written._</li>
-      <li>- next:        _to be written._</li>
+      <li>- recent ship: full landing-page refresh (Hero / Steps / Settle / Features / CTA sections), send-money UX polish, empty-state illustrations</li>
+      <li>- next: PWA push notification foundation; invoice UX flow upgrade; settings page; stricter expense edit-lock guarantees</li>
     </ul>
   </Section>
 

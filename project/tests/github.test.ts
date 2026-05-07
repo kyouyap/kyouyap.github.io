@@ -7,7 +7,7 @@ describe("aggregateLangs", () => {
   });
 
   it("excludes noisy languages by default (Jupyter Notebook etc.)", () => {
-    const repos = [
+    const repos: Record<string, number>[] = [
       { "Jupyter Notebook": 1_000_000 },
       { TypeScript: 5000, Python: 5000 },
     ];
@@ -18,7 +18,7 @@ describe("aggregateLangs", () => {
   });
 
   it("aggregates bytes across repos and sorts descending", () => {
-    const repos = [
+    const repos: Record<string, number>[] = [
       { Python: 200, Shell: 50 },
       { TypeScript: 600 },
       { Python: 100, Shell: 50 },
