@@ -1,0 +1,32 @@
+---
+// project/src/components/LangSwitcher.astro
+import { getLang, swapLang } from "@/lib/i18n";
+
+export interface Props { pathname: string; }
+const { pathname } = Astro.props;
+
+const lang = getLang(pathname);
+const jaHref = swapLang(pathname, "ja");
+const enHref = swapLang(pathname, "en");
+---
+<nav class="ls" aria-label="language">
+  <span aria-hidden="true">[</span>
+  <a href={jaHref} class={lang === "ja" ? "current" : ""} aria-current={lang === "ja" ? "page" : undefined}>JP</a>
+  <span class="bar" aria-hidden="true">|</span>
+  <a href={enHref} class={lang === "en" ? "current" : ""} aria-current={lang === "en" ? "page" : undefined}>EN</a>
+  <span aria-hidden="true">]</span>
+</nav>
+
+<style>
+  .ls {
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--comment);
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .ls a { color: var(--fg-mute); text-decoration: none; }
+  .ls a.current { color: var(--accent); }
+  .ls .bar { color: var(--rule); }
+</style>
