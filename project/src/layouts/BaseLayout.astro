@@ -1,0 +1,59 @@
+---
+// project/src/layouts/BaseLayout.astro
+import "@/styles/global.css";
+
+export interface Props {
+  title: string;
+  description: string;
+  lang: "ja" | "en";
+  pathname: string; // current path, e.g. "/" or "/pairkan/"
+  ogImage?: string;
+}
+
+const { title, description, lang, pathname, ogImage = "/og/og.png" } = Astro.props;
+
+const siteOrigin = Astro.site ? Astro.site.origin : "https://kyouyap.github.io";
+const canonical = new URL(pathname, siteOrigin).href;
+const ogAbs = new URL(ogImage, siteOrigin).href;
+
+// hreflang counterparts
+const enPath = pathname.startsWith("/en/") ? pathname : `/en${pathname === "/" ? "/" : pathname}`;
+const jaPath = pathname === "/en/" ? "/" : pathname.startsWith("/en/") ? pathname.slice(3) : pathname;
+const enHref = new URL(enPath, siteOrigin).href;
+const jaHref = new URL(jaPath, siteOrigin).href;
+---
+<!doctype html>
+<html lang={lang === "ja" ? "ja" : "en"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ja" href={jaHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={jaHref} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="preload"
+      href="/fonts/JetBrainsMono[wght].woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogAbs} />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
