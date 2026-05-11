@@ -1,13 +1,13 @@
 // project/src/i18n/ja.ts
 export const ja = {
   meta: {
-    title: "Takuya Ogata — FDE / Applied Research Engineer",
+    title: "Takuya Ogata — Applied Research Engineer",
     description:
-      "AI プロダクトを、研究から現場へ運ぶ Forward Deployed / Applied Research Engineer。Accenture Japan で生成AI・マルチエージェントを中心に活動。",
+      "AI プロダクトを、研究から現場へ運ぶ Applied Research Engineer。Accenture Japan で生成AI・マルチエージェントを中心に活動。",
   },
   hero: {
     name: "takuya-ogata",
-    role: "Forward Deployed / Applied Research Engineer",
+    role: "Applied Research Engineer",
     tagline: "AI プロダクトを、研究から現場へ運ぶ。",
   },
   about: {
@@ -18,7 +18,7 @@ export const ja = {
       "LangChain · LangGraph · RAG · マルチエージェントの領域でチームをリード。",
       "副業的に Web サービス pairkan.com を個人開発・運用中。",
       "",
-      "「何を作るか」の段階から関わりたい — FDE / Applied Research の文脈で動ける環境を探しています。",
+      "「何を作るか」の段階から関わりたい — Applied Research の文脈で動ける環境を探しています。",
     ],
   },
   now: {

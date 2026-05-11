@@ -2,13 +2,13 @@
 import type { Dict } from "./ja";
 export const en: Dict = {
   meta: {
-    title: "Takuya Ogata — FDE / Applied Research Engineer",
+    title: "Takuya Ogata — Applied Research Engineer",
     description:
-      "Forward Deployed / Applied Research Engineer bringing AI products from research to production. Currently at Accenture Japan, focused on generative AI and multi-agent systems.",
+      "Applied Research Engineer bringing AI products from research to production. Currently at Accenture Japan, focused on generative AI and multi-agent systems.",
   },
   hero: {
     name: "takuya-ogata",
-    role: "Forward Deployed / Applied Research Engineer",
+    role: "Applied Research Engineer",
     tagline: "Bringing AI products from research to production.",
   },
   about: {
@@ -19,7 +19,7 @@ export const en: Dict = {
       "Lead teams in LangChain · LangGraph · RAG · multi-agent territory.",
       "Building and running pairkan.com as a personal product on the side.",
       "",
-      "Looking for FDE / Applied Research roles where I can engage from the “what to build” stage.",
+      "Looking for Applied Research roles where I can engage from the “what to build” stage.",
     ],
   },
   now: {
